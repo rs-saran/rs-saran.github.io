@@ -14,6 +14,10 @@ website:
       - href: index.qmd
         text: Home
       - about.qmd
+      - href: projects.qmd
+        text: Projects
+      - href: posts.qmd
+        text: Posts
       - text: Contact
         menu:
             - icon: linkedin

@@ -1,0 +1,17 @@
+---
+title: "Projects"
+subtitle: "My Side Projects" 
+listing:
+  contents: projects
+  feed: true
+  sort: "date desc"
+  type: grid
+  grid-item-border: true
+  grid-item-align: left
+  max-description-length: 175
+  date-format: medium
+  sort-ui: false
+  filter-ui: false
+page-layout: full
+title-block-banner: true
+---
