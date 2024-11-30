@@ -1,0 +1,31 @@
+---
+title: "About"
+subtitle: "More about who I am—what I do and what I love"
+title-block-banner: true
+---
+
+## Profession 
+
+I’m  a data scientist with a versatile skill set spanning data engineering, analytics, and machine learning. I thrive on tackling complex problems, uncovering actionable insights, and designing solutions that make a difference. 
+
+### Experience
+
+- **Data Scientist at Viacom18** | Aug 2023 - Present <br>
+   After my internship, I transitioned into a full-time role as a data scientist, where I focus on deriving insights to drive business decisions, optimizing data pipelines, and developing machine learning models.
+
+- **Data Science Intern at Viacom18** | Jan 2023 - June 2023 <br>
+   I began my journey as a data science intern, gaining hands-on experience in data engineering and analytics, contributing to key projects, and laying the foundation for my future career in data science.
+
+### Interests
+- **Computer Vision**: I’ve always been fascinated by computer vision because it’s like giving machines the ability to see and understand the world in a way that’s almost human—and sometimes even better. Whether it’s identifying objects, recognizing faces, analyzing scenes, or even detecting emotions in images and videos, the potential of this field is incredible. The applications are endless, from advancing self-driving cars to improving medical diagnoses and treatments. On a more personal note, I also love how computer vision can potentially bring stories to life in entertainment, helping create visuals for web novels, comics, and movies that I’m passionate about.
+
+- **Strategy Analytics**: I’m fascinated by how analytics can reveal the impact of different business strategies. Using data to evaluate decisions and predict outcomes allows organizations to optimize their approach and drive success with greater precision.
+
+##  Hobby 
+
+I’m a huge fan of martial cultivation stories, especially mangas, manhwas, and web novels. There’s just something about the mix of intense action, character growth, and world-building that really pulls me in. I love watching a protagonist start out small, slowly mastering their skills, and then seeing them face epic battles as they grow stronger. It’s the kind of story that can keep me hooked for hours. Every universe feels so unique, and I enjoy following the characters as they push their limits and discover what they’re truly capable of.
+
+## Logo
+My website logo is an ambigram of "RSSR" , my initials. I’ve been fascinated by ambigrams ever since I came across them in *Angels and Demons*. There's something so cool about how a word can be read from different angles or orientations. 
+
+

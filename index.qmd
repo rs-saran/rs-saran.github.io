@@ -1,0 +1,26 @@
+---
+image: images\profile_img.png
+toc: false
+about: 
+  template: jolla
+  image-shape: round
+  image-width: 15em
+  image-alt: Saran's Image
+  links:
+    - icon: envelope
+      text: Mail
+      href: mailto:rs.saran.reddy@gmail.com
+    - icon: github
+      text: Github
+      href: https://github.com/rs-saran
+    - icon: linkedin
+      text: LinkedIn
+      href: https://www.linkedin.com/in/rs-saran/
+---
+
+
+::: {#bio}
+
+Hi there! I’m Saran. I specialize in data engineering, analytics, and machine learning, with a growing focus on machine learning. I’m passionate about uncovering insights and developing intelligent solutions to solve complex and impactful challenges. Outside of work, I’m an avid fan of martial cultivation stories, including mangas, manhwas, and web novels, and I also enjoy watching a variety of movies. Feel free to explore my site to learn more about my work and passions!
+
+:::

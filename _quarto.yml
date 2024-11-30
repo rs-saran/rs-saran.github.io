@@ -1,0 +1,37 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "RS Saran"
+  site-url: https://rs-saran.github.io/
+  favicon: images/favicons/rssr-nobg.png
+
+  navbar:
+    title: false
+    logo: images/favicons/rssr-1.png
+    right:
+      - href: index.qmd
+        text: Home
+      - about.qmd
+      - text: Contact
+        menu:
+            - icon: linkedin
+              text: LinkedIn
+              href: https://www.linkedin.com/in/rs-saran/
+              target: _blank
+            - icon: envelope
+              text: email
+              href: mailto:rs.saran.reddy@gmail.com
+      - icon: github
+        href: https://github.com/rs-saran/rs-saran.github.io
+        target: _blank
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+
+
+
