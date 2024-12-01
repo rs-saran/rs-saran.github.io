@@ -1,11 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://rs-saran.github.io/projects.html</loc>
+    <lastmod>2024-11-30T15:40:00.613Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rs-saran.github.io/posts.html</loc>
+    <lastmod>2024-11-30T15:41:02.473Z</lastmod>
+  </url>
+  <url>
     <loc>https://rs-saran.github.io/index.html</loc>
-    <lastmod>2024-11-30T15:32:24.876Z</lastmod>
+    <lastmod>2024-11-30T15:33:03.931Z</lastmod>
   </url>
   <url>
     <loc>https://rs-saran.github.io/about.html</loc>
     <lastmod>2024-11-30T14:33:13.078Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rs-saran.github.io/posts/proj 1/index.html</loc>
+    <lastmod>2024-12-01T05:22:14.273Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rs-saran.github.io/projects/20241201_me_in_moments/index.html</loc>
+    <lastmod>2024-12-01T05:18:32.031Z</lastmod>
   </url>
 </urlset>

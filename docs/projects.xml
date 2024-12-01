@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss  xmlns:atom="http://www.w3.org/2005/Atom" 
+      xmlns:media="http://search.yahoo.com/mrss/" 
+      xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+      xmlns:dc="http://purl.org/dc/elements/1.1/" 
+      version="2.0">
+<channel>
+<title>RS Saran</title>
+<link>https://rs-saran.github.io/projects.html</link>
+<atom:link href="https://rs-saran.github.io/projects.xml" rel="self" type="application/rss+xml"/>
+<description></description>
+<generator>quarto-1.6.39</generator>
+<lastBuildDate>Sat, 30 Nov 2024 18:30:00 GMT</lastBuildDate>
+<item>
+  <title>MO-ME-NTS</title>
+  <link>https://rs-saran.github.io/projects/20241201_me_in_moments/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<p><a href="https://meinmoments.streamlit.app/" class="btn" target="_blank"><i class="fa-brands fa-web-awesome" aria-label="web-awesome"></i> streamlit app</a> <a href="https://github.com/rs-saran/me-in-moments" class="btn" target="_blank"><i class="fa-brands fa-github" aria-label="github"></i> source code</a></p>
+<p><br></p>
+<!-- # Motivation -->
+<section id="introduction-and-problem-statement" class="level3">
+<h3 class="anchored" data-anchor-id="introduction-and-problem-statement"><strong>Introduction and Problem Statement</strong></h3>
+<p>Events are moments of joy, connection, and memories captured through countless photos snapped across multiple devices. However, the joy of reminiscing these moments often turns into a tedious task—finding the photos where you are present amidst a sea of images.</p>
+<p>This is where <em>Me in Moments</em> comes in. Designed for event-goers, <em>Me in Moments</em> simplifies the process by allowing users to upload a reference image of themselves. The app then scans the entire collection of event photos to find the ones they appear in, providing a fast and accurate solution to a common problem.</p>
+</section>
+<section id="features-and-functionalities" class="level3">
+<h3 class="anchored" data-anchor-id="features-and-functionalities"><strong>Features and Functionalities</strong></h3>
+<p><em>Me in Moments</em> offers a suite of features tailored to enhance the photo discovery experience for event-goers:</p>
+<ol type="1">
+<li><strong>Facial Similarity Search</strong>: Upload a reference photo and all the event photos, and the app scans through the event’s photo collection to find matching photos.<br>
+</li>
+<li><strong>Adjustable Similarity Threshold</strong>: Fine-tune the sensitivity of the facial matching algorithm to get results that align with your preferences.<br>
+</li>
+<li><strong>Download Matches</strong>: Save time by downloading all identified photos with just one click.<br>
+</li>
+<li><strong>Friendly Interface</strong>: Built with Streamlit, the app delivers an intuitive and interactive experience, making it accessible for users of all technical backgrounds.</li>
+</ol>
+</section>
+<section id="tech-stack" class="level3">
+<h3 class="anchored" data-anchor-id="tech-stack"><strong>Tech Stack</strong></h3>
+<p><em>Me in Moments</em> utilizes a combination of robust tools and frameworks to deliver accurate facial recognition and a seamless user experience:</p>
+<section id="deepface-retinaface-facenet512" class="level4">
+<h4 class="anchored" data-anchor-id="deepface-retinaface-facenet512"><strong>1. DeepFace (RetinaFace, FaceNet512)</strong></h4>
+<p>DeepFace is a powerful library for facial recognition, providing access to advanced models like <strong>RetinaFace</strong> and <strong>FaceNet512</strong>.</p>
+<ul>
+<li><strong>RetinaFace</strong>: Excels at detecting faces under diverse conditions, including varied angles and lighting, ensuring reliable face detection across event photos.<br>
+</li>
+<li><strong>FaceNet512</strong>: Generates precise facial embeddings—unique numerical representations of faces—enabling accurate and efficient comparison of a reference image to event photos.<br>
+</li>
+<li><strong>Why DeepFace?</strong> The library simplifies the implementation of state-of-the-art facial recognition models, achieving high accuracy without requiring extensive expertise in machine learning.</li>
+</ul>
+</section>
+<section id="opencv-for-image-processing" class="level4">
+<h4 class="anchored" data-anchor-id="opencv-for-image-processing"><strong>2. OpenCV (For Image Processing)</strong></h4>
+<p>OpenCV is a versatile library for image processing, ensuring the input data is optimized for DeepFace’s recognition models.</p>
+<ul>
+<li><strong>Image Preprocessing</strong>: Handles essential tasks like resizing, cropping, and adjusting image quality to improve recognition accuracy.<br>
+</li>
+<li><strong>Real-Time Processing</strong>: Enables efficient handling of large photo collections, ensuring the app performs well even with significant workloads.<br>
+</li>
+<li><strong>Integration</strong>: Works seamlessly with DeepFace and Streamlit, ensuring smooth workflows from image handling to recognition and display.</li>
+</ul>
+</section>
+<section id="streamlit-for-mvp-deployment" class="level4">
+<h4 class="anchored" data-anchor-id="streamlit-for-mvp-deployment"><strong>3. Streamlit (For MVP Deployment)</strong></h4>
+<p>Streamlit is an ideal framework for rapid MVP (Minimum Viable Product) development, offering speed and simplicity without sacrificing user interactivity.</p>
+<ul>
+<li><strong>Speed &amp; Simplicity</strong>: Streamlit allows for quick prototyping with minimal coding, letting developers focus on core features like facial recognition.<br>
+</li>
+<li><strong>Interactive UI</strong>: Built-in components such as file uploads, sliders, and buttons ensure an intuitive experience. Users can upload a reference photo, adjust the similarity threshold, and download results effortlessly.<br>
+</li>
+<li><strong>Seamless Deployment</strong>: Streamlit’s straightforward deployment process makes it easy to share the app online without complex setup, making it perfect for launching MVPs.<br>
+</li>
+<li><strong>Why Streamlit?</strong> While frameworks like Flask or Django offer more extensive capabilities, Streamlit provides a faster and simpler solution for building data-driven apps, especially during the MVP stage.</li>
+</ul>
+</section>
+</section>
+<section id="implementation" class="level3">
+<h3 class="anchored" data-anchor-id="implementation"><strong>Implementation</strong></h3>
+<section id="mvp-workflow" class="level4">
+<h4 class="anchored" data-anchor-id="mvp-workflow"><strong>MVP Workflow</strong></h4>
+<ol type="1">
+<li><p><strong>Image Input</strong><br>
+Users upload a <strong>reference image</strong> and a collection of <strong>target images</strong>.</p></li>
+<li><p><strong>Image Processing</strong><br>
+The <code>ImageProcessor</code> class processes each image using OpenCV to generate multiple enhanced versions:</p>
+<ul>
+<li><strong>Gray</strong>: Grayscale representation.<br>
+</li>
+<li><strong>Gray_he</strong>: Grayscale with histogram equalization.<br>
+</li>
+<li><strong>YUV_he</strong>: YUV color space with histogram equalization.</li>
+</ul></li>
+<li><p><strong>Face Embedding and Similarity Computation</strong><br>
+The <code>FaceEmbeddingService</code> plays a central role by:</p>
+<ul>
+<li>Detecting faces in the processed images using DeepFace.<br>
+</li>
+<li>Generating embeddings (numerical representations) for each detected face.<br>
+</li>
+<li>Providing a similarity function to compute <strong>cosine distance</strong> between embeddings.</li>
+</ul></li>
+<li><p><strong>Reference Embeddings</strong><br>
+The app processes the reference image through the <code>ImageProcessor</code> and <code>FaceEmbeddingService</code>, storing embeddings for all enhanced versions.</p></li>
+<li><p><strong>Target Image Comparison</strong><br>
+For each target image:</p>
+<ul>
+<li>The <code>ImageProcessor</code> generates processed versions.<br>
+</li>
+<li>The <code>FaceEmbeddingService</code> computes embeddings for detected faces.<br>
+</li>
+<li>Each target embedding is compared against the reference embeddings, and the minimum similarity score is recorded.</li>
+</ul></li>
+<li><p><strong>Caching and Display</strong></p>
+<ul>
+<li>All similarity scores are cached for efficient retrieval.<br>
+</li>
+<li>A slider (default threshold: <strong>0.4</strong>) allows users to adjust matching sensitivity.<br>
+</li>
+<li>Images with similarity scores below the threshold are displayed, helping users identify relevant photos.</li>
+</ul></li>
+</ol>
+</section>
+</section>
+<section id="challenges-and-solutions" class="level3">
+<h3 class="anchored" data-anchor-id="challenges-and-solutions"><strong>Challenges and Solutions</strong></h3>
+<p>During the development of <em>Me in Moments</em>, one significant challenge was ensuring accurate facial similarity comparisons, especially when users were photographed in different lighting conditions. Simple direct comparisons between images were not providing reliable results, as lighting variations often affected the facial features.</p>
+<section id="solution" class="level4">
+<h4 class="anchored" data-anchor-id="solution"><strong>Solution</strong></h4>
+<p>To address this, I implemented a preprocessing step using OpenCV to generate multiple versions of the images before passing them to the facial recognition model:<br>
+- <strong>Gray</strong>: A standard grayscale version of the image.<br>
+- <strong>Gray_he</strong>: A grayscale version with histogram equalization to improve contrast and brightness.<br>
+- <strong>YUV_he</strong>: YUV color space with histogram equalization for better feature extraction.</p>
+<p>These preprocessing techniques enhanced the accuracy of facial detection and similarity comparison, allowing <em>Me in Moments</em> to perform better under varying lighting conditions.</p>
+</section>
+</section>
+<section id="future-enhancements" class="level3">
+<h3 class="anchored" data-anchor-id="future-enhancements"><strong>Future Enhancements</strong></h3>
+<p>The current version of <em>Me in Moments</em> provides a quick and accurate facial similarity search for event photos. Moving forward, several key improvements are planned to enhance scalability, performance, and user experience:</p>
+<section id="scalability" class="level4">
+<h4 class="anchored" data-anchor-id="scalability"><strong>1. Scalability</strong></h4>
+<p>To better handle larger datasets and improve efficiency, the following improvements are in the pipeline:<br>
+- <strong>Centralized Storage</strong>: Users will be able to upload photos from multiple devices to a centralized storage system, making it easier to manage large collections of event photos.<br>
+- <strong>Parallel Processing</strong>: Images will be processed in parallel as soon as they are uploaded, significantly speeding up the face recognition and embedding generation process.<br>
+- <strong>Vector Database</strong>: Face embeddings will be stored in a vector database, enabling fast and scalable similarity searches, even across large datasets.<br>
+- <strong>Unified User Interface</strong>: The UI will be enhanced to allow users to upload reference images and search for matches across the entire event’s photo collection.</p>
+<!-- #TODO performance section
+#TODO conclusion -->
+<p><br></p>
+
+
+</section>
+</section>
+
+ ]]></description>
+  <category>Computer Vision</category>
+  <guid>https://rs-saran.github.io/projects/20241201_me_in_moments/</guid>
+  <pubDate>Sat, 30 Nov 2024 18:30:00 GMT</pubDate>
+  <media:content url="https://rs-saran.github.io/projects/20241201_me_in_moments/me_in_moments_logo_nobg.png" medium="image" type="image/png" height="95" width="144"/>
+</item>
+</channel>
+</rss>
