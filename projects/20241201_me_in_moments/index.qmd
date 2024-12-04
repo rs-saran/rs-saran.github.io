@@ -62,7 +62,9 @@ Streamlit is an ideal framework for rapid MVP (Minimum Viable Product) developme
 
 ### **Implementation**  
 
-#### **MVP Workflow**  
+#### **Workflow**  
+
+![workflow-diagram](workflow-diagram.png){fig-align="center" fig-width="50%"}
 
 1. **Image Input**  
    Users upload a **reference image** and a collection of **target images**.  
@@ -110,12 +112,13 @@ These preprocessing techniques enhanced the accuracy of facial detection and sim
 
 The current version of *Me in Moments* provides a quick and accurate facial similarity search for event photos. Moving forward, several key improvements are planned to enhance scalability, performance, and user experience:
 
-#### **1. Scalability**  
+#### **Scalability**  
 To better handle larger datasets and improve efficiency, the following improvements are in the pipeline:  
-- **Centralized Storage**: Users will be able to upload photos from multiple devices to a centralized storage system, making it easier to manage large collections of event photos.  
-- **Parallel Processing**: Images will be processed in parallel as soon as they are uploaded, significantly speeding up the face recognition and embedding generation process.  
-- **Vector Database**: Face embeddings will be stored in a vector database, enabling fast and scalable similarity searches, even across large datasets.  
+- **Centralized Storage**: Users should be able to upload photos from multiple devices to a centralized storage system, making it easier to manage large collections of event photos.  
+- **Parallel Processing**: Images could be processed in parallel as soon as they are uploaded, significantly speeding up the face recognition and embedding generation process.  
+- **Vector Database**: Face embeddings could be stored in a vector database, enabling fast and scalable similarity searches, even across large datasets.  
 - **Unified User Interface**: The UI will be enhanced to allow users to upload reference images and search for matches across the entire event’s photo collection.  
+
 
 <!-- #TODO performance section
 #TODO MVP workflow diagram -->

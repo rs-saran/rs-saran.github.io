@@ -82,8 +82,14 @@
 </section>
 <section id="implementation" class="level3">
 <h3 class="anchored" data-anchor-id="implementation"><strong>Implementation</strong></h3>
-<section id="mvp-workflow" class="level4">
-<h4 class="anchored" data-anchor-id="mvp-workflow"><strong>MVP Workflow</strong></h4>
+<section id="workflow" class="level4">
+<h4 class="anchored" data-anchor-id="workflow"><strong>Workflow</strong></h4>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://rs-saran.github.io/projects/20241201_me_in_moments/workflow-diagram.png" class="img-fluid figure-img"></p>
+<figcaption>workflow-diagram</figcaption>
+</figure>
+</div>
 <ol type="1">
 <li><p><strong>Image Input</strong><br>
 Users upload a <strong>reference image</strong> and a collection of <strong>target images</strong>.</p></li>
@@ -143,14 +149,14 @@ For each target image:</p>
 <h3 class="anchored" data-anchor-id="future-enhancements"><strong>Future Enhancements</strong></h3>
 <p>The current version of <em>Me in Moments</em> provides a quick and accurate facial similarity search for event photos. Moving forward, several key improvements are planned to enhance scalability, performance, and user experience:</p>
 <section id="scalability" class="level4">
-<h4 class="anchored" data-anchor-id="scalability"><strong>1. Scalability</strong></h4>
+<h4 class="anchored" data-anchor-id="scalability"><strong>Scalability</strong></h4>
 <p>To better handle larger datasets and improve efficiency, the following improvements are in the pipeline:<br>
-- <strong>Centralized Storage</strong>: Users will be able to upload photos from multiple devices to a centralized storage system, making it easier to manage large collections of event photos.<br>
-- <strong>Parallel Processing</strong>: Images will be processed in parallel as soon as they are uploaded, significantly speeding up the face recognition and embedding generation process.<br>
-- <strong>Vector Database</strong>: Face embeddings will be stored in a vector database, enabling fast and scalable similarity searches, even across large datasets.<br>
+- <strong>Centralized Storage</strong>: Users should be able to upload photos from multiple devices to a centralized storage system, making it easier to manage large collections of event photos.<br>
+- <strong>Parallel Processing</strong>: Images could be processed in parallel as soon as they are uploaded, significantly speeding up the face recognition and embedding generation process.<br>
+- <strong>Vector Database</strong>: Face embeddings could be stored in a vector database, enabling fast and scalable similarity searches, even across large datasets.<br>
 - <strong>Unified User Interface</strong>: The UI will be enhanced to allow users to upload reference images and search for matches across the entire event’s photo collection.</p>
 <!-- #TODO performance section
-#TODO conclusion -->
+#TODO MVP workflow diagram -->
 <p><br></p>
 
 
