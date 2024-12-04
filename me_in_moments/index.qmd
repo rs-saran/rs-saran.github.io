@@ -1,0 +1,16 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting...</title>
+    <meta http-equiv="refresh" content="0;url=/projects/20241201_me_in_moments/">
+    <script>
+        window.location.href = "/projects/20241201_me_in_moments/";
+    </script>
+</head>
+<body>
+    <p>If you are not redirected automatically, follow this <a href="/projects/20241201_me_in_moments/">link</a>.</p>
+</body>
+</html>
+
+<!-- this is just a redirection page -->

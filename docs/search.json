@@ -14,11 +14,11 @@
     "text": "Coming Soon\n\n\n\n\n\n\nWIP\n\n\n\nWork in progress \n\n\n\n\n\nSai Saran Reddy\n\n\n\n\n\n\nNo matching items"
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
+    "objectID": "me_in_moments/index.html",
+    "href": "me_in_moments/index.html",
     "title": "RS Saran",
     "section": "",
-    "text": "Hi there! I’m Saran. I specialize in data engineering, analytics, and machine learning, with a growing focus on machine learning. I’m passionate about uncovering insights and developing intelligent solutions to solve complex and impactful challenges. Outside of work, I’m an avid fan of martial cultivation stories, including mangas, manhwas, and web novels, and I also enjoy watching a variety of movies. Feel free to explore my site to learn more about my work and passions!"
+    "text": "Redirecting…\n\n\n\n\n\n\nIf you are not redirected automatically, follow this link."
   },
   {
     "objectID": "about.html",
@@ -49,11 +49,11 @@
     "text": "Logo\nMy website logo is an ambigram of “RSSR” , my initials. I’ve been fascinated by ambigrams ever since I came across them in Angels and Demons. There’s something so cool about how a word can be read from different angles or orientations."
   },
   {
-    "objectID": "posts/proj 1/index.html",
-    "href": "posts/proj 1/index.html",
-    "title": "Shiny Strava Dashboard",
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "RS Saran",
     "section": "",
-    "text": "shiny dashboard  source code\n\n\nIt doesn’t get much better than playing around with data that mean a lot to you. For me, that’s my Strava data (yes, I do recognize that that might sound a bit silly) – I’m fortunate enough to have near-immediate access to some of the greatest hiking trails around (yes, I also recognize that I’m totally biased), and spending my free time romping around our local mountains has been so important for my mental health. So, when I was ready to do my first real deep-dive into learning how to build Shiny apps and dashboards, I knew these were the data I needed to use.\n\nThis is very much an ongoing work in-progress, but the first version included a “Gear Garage” for tracking mileage on my hiking boots and bike, an activity heat map of all recorded hikes, bike rides, and walks, visualizations for exploring activity distance and elevation gain, and an interactive table of the raw data.\nThere are many more visualizations and features I’d love to add (but have been severely lacking the time to do so). I also still manually retrieve new activities using the Strava API via the {rStrava} package, but I hope to automate this in the next version. Stay tuned!\n\n\n\nCathedral Peak, Santa Barbara, CA"
+    "text": "Hi there! I’m Saran. I specialize in data engineering, analytics, and machine learning, with a growing focus on machine learning. I’m passionate about uncovering insights and developing intelligent solutions to solve complex and impactful challenges. Outside of work, I’m an avid fan of martial cultivation stories, including mangas, manhwas, and web novels, and I also enjoy watching a variety of movies. Feel free to explore my site to learn more about my work and passions!"
   },
   {
     "objectID": "projects/20241201_me_in_moments/index.html",
