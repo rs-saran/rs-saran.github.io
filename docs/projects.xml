@@ -10,7 +10,103 @@
 <atom:link href="https://rs-saran.github.io/projects.xml" rel="self" type="application/rss+xml"/>
 <description></description>
 <generator>quarto-1.6.39</generator>
-<lastBuildDate>Sat, 30 Nov 2024 18:30:00 GMT</lastBuildDate>
+<lastBuildDate>Sat, 04 Jan 2025 18:30:00 GMT</lastBuildDate>
+<item>
+  <title>Serene Solace - Sophy</title>
+  <link>https://rs-saran.github.io/projects/20250105_serene_solace_sophy/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<p><a href="https://github.com/rs-saran/serene-solace-sophy" class="btn" target="_blank"><i class="fa-brands fa-github" aria-label="github"></i> source code</a> <a href="https://github.com/rs-saran/serene-solace-sophy/blob/main/example_chat.txt" class="btn" target="_blank"><i class="fa-solid fa-bars" aria-label="bars"></i> demo chat</a> <br></p>
+<section id="introduction" class="level3">
+<h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
+<p>In today’s fast-paced world, mental health is more important than ever. Yet, many people struggle with their emotional well-being, often facing issues alone. Stress, anxiety, and overwhelming thoughts can build up without a clear outlet, leaving individuals feeling isolated and unheard. Fortunately, there’s an old but powerful piece of advice: “<em>Talking to a friend about your problems can help.</em>” When we share our struggles, it often helps to sort through them, gain new perspectives, and release the tension that builds up over time.</p>
+<p>It’s important to note that talking to someone is not a cure-all for mental health problems. If you are struggling with a serious mental health condition, it is important to seek professional help from a therapist or counselor. However, talking to someone you trust can be a helpful first step in managing your mental health.</p>
+<p>But not everyone has someone they can turn to when they need it most. This gap presents a significant challenge. How can we provide people with a safe, understanding space to express their feelings and navigate their mental health struggles? - Serene Solace</p>
+</section>
+<section id="scope" class="level3">
+<h3 class="anchored" data-anchor-id="scope">Scope</h3>
+<ol type="1">
+<li>Provides emotional support through empathetic, personalized conversations.</li>
+<li>Maintains user confidentiality.</li>
+<li>Guides user to Crisis Management helpline when required.</li>
+<li>Answers company (serene solace) related questions.</li>
+</ol>
+</section>
+<section id="model-selection" class="level3">
+<h3 class="anchored" data-anchor-id="model-selection">Model Selection</h3>
+<p>When deciding on the right approach to model selection for Serene Solace, two key factors must be carefully considered: whether to build a model from scratch or use pretrained models, and the financial implications of selecting an API or self-hosted solution.</p>
+<ol type="1">
+<li><p><strong>Build from Scratch vs.&nbsp;Use Pretrained Models</strong>: Building a model from the ground up requires significant investment in terms of time, expertise, and computational resources. This process is costly and can delay deployment. On the other hand, using pretrained models offers a practical and cost-effective solution. These models have already been trained on large datasets and are ready for fine-tuning, saving both time and resources while providing high-quality performance from the start.</p></li>
+<li><p><strong>API Costs vs.&nbsp;Self-Hosting</strong>: When considering the use of language models, the decision to use APIs versus hosting a model locally comes down to ongoing costs, control, and privacy. Using an API service can incur substantial recurring costs, especially as the volume of users and requests grows. These costs can add up over time, potentially making API usage less cost-effective for long-term scalability. Additionally, APIs often come with limitations on data privacy, as user data may be processed by third-party services.</p></li>
+</ol>
+<p>On the other hand, self-hosting an open-source model allows for full control over data privacy and confidentiality, which is crucial for an emotional support service. By hosting the model locally, we can ensure that sensitive information remains within the organization’s secure infrastructure, addressing privacy concerns. A viable and cost-effective option for self-hosting is the Llama 3.2:1b model, an open-source, lightweight language model. It offers a balance of performance and efficiency, reducing the need for expensive cloud API services while still providing high-quality, empathetic conversations.</p>
+<p>In conclusion, for Serene Solace’s focus on providing confidential, emotionally supportive conversations, using an open-source model like Llama 3.2:1b and hosting it locally proves to be both cost-effective and privacy-conscious. This solution minimizes the financial burden of API usage while ensuring user data stays secure.</p>
+</section>
+<section id="workflow" class="level3">
+<h3 class="anchored" data-anchor-id="workflow">Workflow</h3>
+<p><img src="https://rs-saran.github.io/projects/20250105_serene_solace_sophy/sophy_state_graph.png" class="img-fluid"></p>
+<ol type="1">
+<li><strong>State Graph</strong>:</li>
+</ol>
+<ul>
+<li>Sophy uses <code>langgraph</code> to build a state graph.</li>
+<li>The graph manages transitions between nodes: <code>Agent</code>, <code>Sophy</code>, <code>CompanyQA</code>, and <code>CrisisHandler</code>.</li>
+</ul>
+<ol start="2" type="1">
+<li><strong>Agent Node</strong>:</li>
+</ol>
+<ul>
+<li>Determines the appropriate route based on user input:</li>
+<li><code>Sophy</code>: Normal conversation for mental health support.</li>
+<li><code>CrisisHandler</code>: Directs the user to an active crisis helpline.</li>
+<li><code>CompanyQA</code>: Answers company-related queries.</li>
+</ul>
+<ol start="3" type="1">
+<li><strong>Sophy</strong>:</li>
+</ol>
+<ul>
+<li>Uses llama3.21b model to chat empathetically.</li>
+<li>Dynamically summarizes ongoing exchanges to maintain context and improve conversation flow.</li>
+</ul>
+<ol start="4" type="1">
+<li><strong>Company Q&amp;A</strong>:</li>
+</ol>
+<ul>
+<li>Leverages FAISS for document retrieval and answers user questions based on the <code>company.md</code> file.</li>
+</ul>
+<ol start="5" type="1">
+<li><strong>Crisis Handling</strong>:</li>
+</ol>
+<ul>
+<li>Provides a helpline number if harmful intent is detected.</li>
+</ul>
+</section>
+<section id="future-improvements" class="level3">
+<h3 class="anchored" data-anchor-id="future-improvements">Future Improvements</h3>
+<ul>
+<li>Smoother integration between flows.</li>
+<li>UI for the chat.</li>
+<li>Expand the knowledge base for company Q&amp;A.</li>
+<li>Enhance the detection mechanism for harmful intent.</li>
+<li>Multi User Interactions.</li>
+</ul>
+
+
+</section>
+
+ ]]></description>
+  <category>NLP</category>
+  <category>chat-bot</category>
+  <category>RAG</category>
+  <category>LLM</category>
+  <guid>https://rs-saran.github.io/projects/20250105_serene_solace_sophy/</guid>
+  <pubDate>Sat, 04 Jan 2025 18:30:00 GMT</pubDate>
+  <media:content url="https://rs-saran.github.io/projects/20250105_serene_solace_sophy/serene_solace_logo_nobg.png" medium="image" type="image/png" height="94" width="144"/>
+</item>
 <item>
   <title>MO-ME-NTS</title>
   <link>https://rs-saran.github.io/projects/20241201_me_in_moments/</link>

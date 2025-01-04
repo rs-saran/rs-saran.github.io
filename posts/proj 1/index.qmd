@@ -1,8 +1,0 @@
----
-title: "Coming Soon"
-description: |
- Work in progress
-# date: 2022-11-23
-categories: [WIP]
-draft: false
----

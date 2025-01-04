@@ -1,0 +1,4 @@
+https://looka.com/ for logo generation
+https://www.photoroom.com/tools/background-remover for removing backgrounds
+https://fontawesome.com/v6/search for icons in posts
+in this you can find the icon code <i class="fa-solid fa-check"></i> ==> {{< fa solid check >}}
