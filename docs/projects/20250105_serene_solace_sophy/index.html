@@ -201,19 +201,17 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="model-selection" class="level3">
 <h3 class="anchored" data-anchor-id="model-selection">Model Selection</h3>
+<p>When deciding on the right approach to model selection for Serene Solace, two key factors must be carefully considered: whether to build a model from scratch or use pretrained models, and the financial implications of selecting an API or self-hosted solution.</p>
 <ol type="1">
-<li>Build from scratch vs use pretrained models: too costly, select pretrained language models</li>
-<li>Which language models to select opensource vs propeitary models: APIs, self hosting? for confidentiality we want to run the model locally so choosing a small opensource model like llama3.2:1b would be better.</li>
+<li><p><strong>Build from Scratch vs.&nbsp;Use Pretrained Models</strong>: Building a model from the ground up requires significant investment in terms of time, expertise, and computational resources. This process is costly and can delay deployment. On the other hand, using pretrained models offers a practical and cost-effective solution. These models have already been trained on large datasets and are ready for fine-tuning, saving both time and resources while providing high-quality performance from the start.</p></li>
+<li><p><strong>API Costs vs.&nbsp;Self-Hosting</strong>: When considering the use of language models, the decision to use APIs versus hosting a model locally comes down to ongoing costs, control, and privacy. Using an API service can incur substantial recurring costs, especially as the volume of users and requests grows. These costs can add up over time, potentially making API usage less cost-effective for long-term scalability. Additionally, APIs often come with limitations on data privacy, as user data may be processed by third-party services.</p></li>
 </ol>
+<p>On the other hand, self-hosting an open-source model allows for full control over data privacy and confidentiality, which is crucial for an emotional support service. By hosting the model locally, we can ensure that sensitive information remains within the organization’s secure infrastructure, addressing privacy concerns. A viable and cost-effective option for self-hosting is the Llama 3.2:1b model, an open-source, lightweight language model. It offers a balance of performance and efficiency, reducing the need for expensive cloud API services while still providing high-quality, empathetic conversations.</p>
+<p>In conclusion, for Serene Solace’s focus on providing confidential, emotionally supportive conversations, using an open-source model like Llama 3.2:1b and hosting it locally proves to be both cost-effective and privacy-conscious. This solution minimizes the financial burden of API usage while ensuring user data stays secure.</p>
 </section>
 <section id="workflow" class="level3">
 <h3 class="anchored" data-anchor-id="workflow">Workflow</h3>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="./sophy_state_graph.png" class="img-fluid figure-img"></p>
-<figcaption>Langgraph Flow</figcaption>
-</figure>
-</div>
+<p><img src="./sophy_state_graph.png" class="img-fluid"></p>
 <ol type="1">
 <li><strong>State Graph</strong>:</li>
 </ol>
@@ -226,9 +224,9 @@ ul.task-list li input[type="checkbox"] {
 </ol>
 <ul>
 <li>Determines the appropriate route based on user input:</li>
-<li><code>continue_chat</code>: Normal conversation for mental health support.</li>
-<li><code>crisis_helpline</code>: Directs the user to a crisis helpline.</li>
-<li><code>company_qa</code>: Answers company-related queries.</li>
+<li><code>Sophy</code>: Normal conversation for mental health support.</li>
+<li><code>CrisisHandler</code>: Directs the user to an active crisis helpline.</li>
+<li><code>CompanyQA</code>: Answers company-related queries.</li>
 </ul>
 <ol start="3" type="1">
 <li><strong>Sophy</strong>:</li>
@@ -253,10 +251,11 @@ ul.task-list li input[type="checkbox"] {
 <section id="future-improvements" class="level3">
 <h3 class="anchored" data-anchor-id="future-improvements">Future Improvements</h3>
 <ul>
-<li>Smoother integration between flows</li>
-<li>UI for the chat</li>
+<li>Smoother integration between flows.</li>
+<li>UI for the chat.</li>
 <li>Expand the knowledge base for company Q&amp;A.</li>
 <li>Enhance the detection mechanism for harmful intent.</li>
+<li>Multi User Interactions.</li>
 </ul>
 
 

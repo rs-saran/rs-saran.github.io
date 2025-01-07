@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://rs-saran.github.io/projects.html</loc>
-    <lastmod>2024-11-30T15:40:00.613Z</lastmod>
+    <loc>https://rs-saran.github.io/sophy/index.html</loc>
+    <lastmod>2025-01-07T02:47:25.623Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rs-saran.github.io/projects/20250105_serene_solace_sophy/index.html</loc>
+    <lastmod>2025-01-04T21:16:07.151Z</lastmod>
   </url>
   <url>
     <loc>https://rs-saran.github.io/posts.html</loc>
@@ -21,19 +25,15 @@
     <lastmod>2024-11-30T15:33:03.931Z</lastmod>
   </url>
   <url>
-    <loc>https://rs-saran.github.io/posts/proj 1/index.html</loc>
-    <lastmod>2024-12-01T05:22:14.273Z</lastmod>
+    <loc>https://rs-saran.github.io/posts/20241209_tale_of_two_lands/index.html</loc>
+    <lastmod>2024-12-09T16:01:09.796Z</lastmod>
   </url>
   <url>
     <loc>https://rs-saran.github.io/projects/20241201_me_in_moments/index.html</loc>
     <lastmod>2024-12-04T14:57:48.494Z</lastmod>
   </url>
   <url>
-    <loc>https://rs-saran.github.io/posts/20241209_tale_of_two_lands/index.html</loc>
-    <lastmod>2024-12-09T16:01:09.796Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rs-saran.github.io/projects/20250105_serene_solace_sophy/index.html</loc>
-    <lastmod>2025-01-04T21:12:38.483Z</lastmod>
+    <loc>https://rs-saran.github.io/projects.html</loc>
+    <lastmod>2024-11-30T15:40:00.613Z</lastmod>
   </url>
 </urlset>
