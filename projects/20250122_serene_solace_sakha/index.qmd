@@ -1,0 +1,21 @@
+---
+title: "Serene Solace - Sakha"
+description: |
+  A friendly bot, designed to check in on you nd help you improve your mood
+date: 2025-01-22
+categories: [NLP, chat-bot, RAG, LLM]
+image: serene_solace_logo_nobg.png
+draft: true
+toc: false
+---
+[{{< fa brands github >}} source code](https://github.com/rs-saran/serene-solace-sophy){.btn target=_blank} 
+[{{< fa solid bars >}} demo chat](https://github.com/rs-saran/serene-solace-sophy/blob/main/example_chat.txt){.btn target=_blank}
+<br>
+
+### Introduction 
+In today’s fast-paced world, many individuals struggle with feelings of stress, loneliness, and emotional overwhelm. While professional therapy is invaluable for addressing deep-seated issues, not everyone requires—or has access to—such resources. Often, a simple, empathetic check-in or a comforting suggestion can go a long way in improving someone’s mood or helping them feel supported.
+
+This project aims to bridge that gap by creating a chatbot designed to act as a caring friend. It will check in on users’ well-being, provide personalized activity suggestions, and offer emotional support through warm and understanding conversations. The goal is not to replace professional help but to provide a friendly, non-judgmental space where users can feel heard and gently encouraged to engage in activities that bring them joy and comfort.
+
+
+#
