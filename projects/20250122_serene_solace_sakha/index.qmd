@@ -1,21 +1,119 @@
 ---
-title: "Serene Solace - Sakha"
+title: "Sakha: Building a Chatbot That Cares"
 description: |
-  A friendly bot, designed to check in on you nd help you improve your mood
-date: 2025-01-22
-categories: [NLP, chat-bot, RAG, LLM]
+  A digital friend, designed to check in on you and help you improve your mood
+date: 2025-04-16
+categories: [NLP, chat-bot, LLM]
 image: serene_solace_logo_nobg.png
 draft: true
 toc: false
 ---
-[{{< fa brands github >}} source code](https://github.com/rs-saran/serene-solace-sophy){.btn target=_blank} 
+[{{< fa brands github >}} source code](https://github.com/rs-saran/serene-solace-sakha){.btn target=_blank} 
 [{{< fa solid bars >}} demo chat](https://github.com/rs-saran/serene-solace-sophy/blob/main/example_chat.txt){.btn target=_blank}
 <br>
 
 ### Introduction 
-In today’s fast-paced world, many individuals struggle with feelings of stress, loneliness, and emotional overwhelm. While professional therapy is invaluable for addressing deep-seated issues, not everyone requires—or has access to—such resources. Often, a simple, empathetic check-in or a comforting suggestion can go a long way in improving someone’s mood or helping them feel supported.
 
-This project aims to bridge that gap by creating a chatbot designed to act as a caring friend. It will check in on users’ well-being, provide personalized activity suggestions, and offer emotional support through warm and understanding conversations. The goal is not to replace professional help but to provide a friendly, non-judgmental space where users can feel heard and gently encouraged to engage in activities that bring them joy and comfort.
+In today’s fast-paced world, many of us silently wrestle with stress, loneliness, and emotional overwhelm. Therapy is a powerful avenue for healing, but not everyone needs—or can access—that level of care. Sometimes, all it takes is a gentle check-in, a thoughtful nudge, or the simple comfort of feeling seen.
+
+That’s where Sakha began. Not as a replacement for professional help, but as a small, caring presence—always there, always listening. A friend in your pocket, ready to ask how you're doing, suggest something that might lift your mood, or simply sit with you in a moment of stillness.
+
+The vision was simple yet ambitious: create a chatbot that doesn’t just respond, but genuinely cares. One that offers warmth, understanding, and personalized encouragement—without judgment, pressure, or pretense.
+
+The name Sakha, meaning “friend” in Sanskrit, wasn’t chosen lightly. It reflected the heart of what I wanted this project to embody: a companion who listens, nudges, and supports without judgment. Someone who remembers that you enjoy walks when you're anxious, or that music lifts your mood when you’re feeling off.
 
 
-#
+**Scope of the Project**  
+
+A human friend can do many things—offer advice, share personal experiences, comfort you in tough times, or challenge your ideas. The list goes on and on, and no chatbot could hope to replicate all of that depth.
+
+With Sakha, the aim wasn’t to do everything a human friend does but to offer a *starting point*—a focused subset of what a caring friend might provide in the everyday moments when you just need a check-in, a small nudge, or a reminder to care for yourself.  
+
+Key functions included:
+- Checking in on your emotional well-being.
+- Suggesting activities to boost mood or break a cycle of stress.
+- Offering a non-judgmental space to reflect or receive gentle reminders.
+
+It’s a limited scope, yes, but it’s a foundation—one that can evolve over time as we explore more complex interactions, while keeping things simple and meaningful in the beginning.
+
+Thanks for the details—that’s super helpful. Here’s how I suggest we structure the rest of the blog, staying true to your voice and reflecting the actual journey you had. The tone will still be narrative but will sneak in technical insights through storytelling, not a dry dump.
+
+---
+
+## Building Sakha: One Decision at a Time
+
+### **Where Do You Even Start?**
+
+I didn’t set out with a 100-step master plan. Like most projects, Sakha started with a question: *How do I make a chatbot feel like a friend—not just in tone, but in behavior?* I knew I needed something flexible, expressive, and capable of holding a conversation in a way that didn’t feel robotic. That naturally pointed me toward LLMs.
+
+### **Choosing the Mind – LLMs and How I Picked Mine**
+
+With dozens of options, the choice wasn’t easy. GPT-4? Claude? LLaMA? Each model had tradeoffs in terms of access, pricing, and openness. Eventually, I chose to use open-source LLMs hosted through **Groq’s API**. Why?
+
+- **Speed**: Groq’s inference speeds were impressive.
+- **Flexibility**: It supports open-source models like LLaMA3.3, which means I’m not locked into one ecosystem.
+- **Future-ready**: I can always self-host these models later if needed, thanks to their open-source nature.
+
+I wrapped this through **LangChain**, which made it super easy to swap out models during experimentation and build proofs-of-concept quickly without worrying about underlying LLM plumbing.
+
+---
+
+### **LangGraph – Giving Structure to Conversations**
+
+Once I picked the brain, I needed to figure out how to guide it. Not every conversation should be flat and linear—some needed state, branching logic, and even tool use.
+
+That’s where **LangGraph** came in.
+
+- It lets me create multi-step workflows.
+- I can embed conditional logic into conversations (e.g., “Is the user in distress?” → switch flow).
+- It gives me conversational memory for continuity.
+- And it integrates smoothly with external tools and APIs.
+
+LangGraph powers Sakha’s **conversation graph**—the engine that routes how chats progress depending on context and user state.
+
+---
+
+### **Why Flask for the UI?**
+
+I kept the frontend simple—just a few HTML pages with some JavaScript—but even that needed a stable backend.
+
+**Flask** fit perfectly:
+- Lightweight and quick to set up
+- Easy to plug into Python-based LLM pipelines
+- Great for rapid prototyping and deployment
+
+It let me focus on core logic without worrying about UI framework overhead.
+
+---
+
+### **Core Internals – A Quick Tour**
+
+At the heart of Sakha, there are a few key components:
+
+#### **Conversation Processor**
+The entry point. It:
+- Takes the user’s input
+- Does basic preprocessing (cleaning, formatting)
+- Passes it through the conversation graph to get an appropriate response
+
+#### **Supervisor Node**
+The first stop in every conversation.
+- It determines if the bot should continue with a normal conversation or escalate to crisis support
+- This was important: we wanted to *check in* on users, but also not ignore red flags when they show up
+
+#### **Chat Engine**
+If the conversation isn’t a crisis, we route it here.
+- It decides which chat flow to run: `activity suggestion`, `reminder`, or `follow-up`
+- This modularity helps keep the system clean
+- Each flow exists because *one prompt can’t do everything*—we needed different instructions, behaviors, and tools depending on the use case
+
+This structure helped us build conversations that felt purpose-driven while still being emotionally supportive.
+
+---
+
+
+
+### **What's Next?**
+
+Sakha isn’t finished—there are plans for better testing, more flows, and richer context tracking. But the current system is functional, modular, and grounded in thoughtful decisions that balance feasibility with ambition.
+
