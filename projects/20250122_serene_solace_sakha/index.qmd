@@ -5,7 +5,7 @@ description: |
 date: 2025-04-16
 categories: [NLP, chat-bot, LLM]
 image: serene_solace_logo_nobg.png
-draft: true
+draft: false
 toc: false
 ---
 [{{< fa brands github >}} source code](https://github.com/rs-saran/serene-solace-sakha){.btn target=_blank} 
