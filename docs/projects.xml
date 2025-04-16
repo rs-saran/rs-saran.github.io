@@ -10,7 +10,102 @@
 <atom:link href="https://rs-saran.github.io/projects.xml" rel="self" type="application/rss+xml"/>
 <description></description>
 <generator>quarto-1.6.39</generator>
-<lastBuildDate>Sat, 04 Jan 2025 18:30:00 GMT</lastBuildDate>
+<lastBuildDate>Tue, 15 Apr 2025 18:30:00 GMT</lastBuildDate>
+<item>
+  <title>Sakha: Building a Chatbot That Cares</title>
+  <link>https://rs-saran.github.io/projects/20250122_serene_solace_sakha/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<p><a href="https://github.com/rs-saran/serene-solace-sakha" class="btn" target="_blank"><i class="fa-brands fa-github" aria-label="github"></i> source code</a> <a href="https://github.com/rs-saran/serene-solace-sophy/blob/main/example_chat.txt" class="btn" target="_blank"><i class="fa-solid fa-bars" aria-label="bars"></i> demo chat</a> <br></p>
+<section id="introduction" class="level3">
+<h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
+<p>In today’s fast-paced world, many of us silently wrestle with stress, loneliness, and emotional overwhelm. Therapy is a powerful avenue for healing, but not everyone needs—or can access—that level of care. Sometimes, all it takes is a gentle check-in, a thoughtful nudge, or the simple comfort of feeling seen.</p>
+<p>That’s where Sakha began. Not as a replacement for professional help, but as a small, caring presence—always there, always listening. A friend in your pocket, ready to ask how you’re doing, suggest something that might lift your mood, or simply sit with you in a moment of stillness.</p>
+<p>The vision was simple yet ambitious: create a chatbot that doesn’t just respond, but genuinely cares. One that offers warmth, understanding, and personalized encouragement—without judgment, pressure, or pretense.</p>
+<p>The name Sakha, meaning “friend” in Sanskrit, wasn’t chosen lightly. It reflected the heart of what I wanted this project to embody: a companion who listens, nudges, and supports without judgment. Someone who remembers that you enjoy walks when you’re anxious, or that music lifts your mood when you’re feeling off.</p>
+<p><strong>Scope of the Project</strong></p>
+<p>A human friend can do many things—offer advice, share personal experiences, comfort you in tough times, or challenge your ideas. The list goes on and on, and no chatbot could hope to replicate all of that depth.</p>
+<p>With Sakha, the aim wasn’t to do everything a human friend does but to offer a <em>starting point</em>—a focused subset of what a caring friend might provide in the everyday moments when you just need a check-in, a small nudge, or a reminder to care for yourself.</p>
+<p>Key functions included: - Checking in on your emotional well-being. - Suggesting activities to boost mood or break a cycle of stress. - Offering a non-judgmental space to reflect or receive gentle reminders.</p>
+<p>It’s a limited scope, yes, but it’s a foundation—one that can evolve over time as we explore more complex interactions, while keeping things simple and meaningful in the beginning.</p>
+<p>Thanks for the details—that’s super helpful. Here’s how I suggest we structure the rest of the blog, staying true to your voice and reflecting the actual journey you had. The tone will still be narrative but will sneak in technical insights through storytelling, not a dry dump.</p>
+<hr>
+</section>
+<section id="building-sakha-one-decision-at-a-time" class="level2">
+<h2 class="anchored" data-anchor-id="building-sakha-one-decision-at-a-time">Building Sakha: One Decision at a Time</h2>
+<section id="where-do-you-even-start" class="level3">
+<h3 class="anchored" data-anchor-id="where-do-you-even-start"><strong>Where Do You Even Start?</strong></h3>
+<p>I didn’t set out with a 100-step master plan. Like most projects, Sakha started with a question: <em>How do I make a chatbot feel like a friend—not just in tone, but in behavior?</em> I knew I needed something flexible, expressive, and capable of holding a conversation in a way that didn’t feel robotic. That naturally pointed me toward LLMs.</p>
+</section>
+<section id="choosing-the-mind-llms-and-how-i-picked-mine" class="level3">
+<h3 class="anchored" data-anchor-id="choosing-the-mind-llms-and-how-i-picked-mine"><strong>Choosing the Mind – LLMs and How I Picked Mine</strong></h3>
+<p>With dozens of options, the choice wasn’t easy. GPT-4? Claude? LLaMA? Each model had tradeoffs in terms of access, pricing, and openness. Eventually, I chose to use open-source LLMs hosted through <strong>Groq’s API</strong>. Why?</p>
+<ul>
+<li><strong>Speed</strong>: Groq’s inference speeds were impressive.</li>
+<li><strong>Flexibility</strong>: It supports open-source models like LLaMA3.3, which means I’m not locked into one ecosystem.</li>
+<li><strong>Future-ready</strong>: I can always self-host these models later if needed, thanks to their open-source nature.</li>
+</ul>
+<p>I wrapped this through <strong>LangChain</strong>, which made it super easy to swap out models during experimentation and build proofs-of-concept quickly without worrying about underlying LLM plumbing.</p>
+<hr>
+</section>
+<section id="langgraph-giving-structure-to-conversations" class="level3">
+<h3 class="anchored" data-anchor-id="langgraph-giving-structure-to-conversations"><strong>LangGraph – Giving Structure to Conversations</strong></h3>
+<p>Once I picked the brain, I needed to figure out how to guide it. Not every conversation should be flat and linear—some needed state, branching logic, and even tool use.</p>
+<p>That’s where <strong>LangGraph</strong> came in.</p>
+<ul>
+<li>It lets me create multi-step workflows.</li>
+<li>I can embed conditional logic into conversations (e.g., “Is the user in distress?” → switch flow).</li>
+<li>It gives me conversational memory for continuity.</li>
+<li>And it integrates smoothly with external tools and APIs.</li>
+</ul>
+<p>LangGraph powers Sakha’s <strong>conversation graph</strong>—the engine that routes how chats progress depending on context and user state.</p>
+<hr>
+</section>
+<section id="why-flask-for-the-ui" class="level3">
+<h3 class="anchored" data-anchor-id="why-flask-for-the-ui"><strong>Why Flask for the UI?</strong></h3>
+<p>I kept the frontend simple—just a few HTML pages with some JavaScript—but even that needed a stable backend.</p>
+<p><strong>Flask</strong> fit perfectly: - Lightweight and quick to set up - Easy to plug into Python-based LLM pipelines - Great for rapid prototyping and deployment</p>
+<p>It let me focus on core logic without worrying about UI framework overhead.</p>
+<hr>
+</section>
+<section id="core-internals-a-quick-tour" class="level3">
+<h3 class="anchored" data-anchor-id="core-internals-a-quick-tour"><strong>Core Internals – A Quick Tour</strong></h3>
+<p>At the heart of Sakha, there are a few key components:</p>
+<section id="conversation-processor" class="level4">
+<h4 class="anchored" data-anchor-id="conversation-processor"><strong>Conversation Processor</strong></h4>
+<p>The entry point. It: - Takes the user’s input - Does basic preprocessing (cleaning, formatting) - Passes it through the conversation graph to get an appropriate response</p>
+</section>
+<section id="supervisor-node" class="level4">
+<h4 class="anchored" data-anchor-id="supervisor-node"><strong>Supervisor Node</strong></h4>
+<p>The first stop in every conversation. - It determines if the bot should continue with a normal conversation or escalate to crisis support - This was important: we wanted to <em>check in</em> on users, but also not ignore red flags when they show up</p>
+</section>
+<section id="chat-engine" class="level4">
+<h4 class="anchored" data-anchor-id="chat-engine"><strong>Chat Engine</strong></h4>
+<p>If the conversation isn’t a crisis, we route it here. - It decides which chat flow to run: <code>activity suggestion</code>, <code>reminder</code>, or <code>follow-up</code> - This modularity helps keep the system clean - Each flow exists because <em>one prompt can’t do everything</em>—we needed different instructions, behaviors, and tools depending on the use case</p>
+<p>This structure helped us build conversations that felt purpose-driven while still being emotionally supportive.</p>
+<hr>
+</section>
+</section>
+<section id="whats-next" class="level3">
+<h3 class="anchored" data-anchor-id="whats-next"><strong>What’s Next?</strong></h3>
+<p>Sakha isn’t finished—there are plans for better testing, more flows, and richer context tracking. But the current system is functional, modular, and grounded in thoughtful decisions that balance feasibility with ambition.</p>
+
+
+</section>
+</section>
+
+ ]]></description>
+  <category>NLP</category>
+  <category>chat-bot</category>
+  <category>LLM</category>
+  <guid>https://rs-saran.github.io/projects/20250122_serene_solace_sakha/</guid>
+  <pubDate>Tue, 15 Apr 2025 18:30:00 GMT</pubDate>
+  <media:content url="https://rs-saran.github.io/projects/20250122_serene_solace_sakha/serene_solace_logo_nobg.png" medium="image" type="image/png" height="94" width="144"/>
+</item>
 <item>
   <title>Serene Solace - Sophy</title>
   <link>https://rs-saran.github.io/projects/20250105_serene_solace_sophy/</link>
@@ -264,162 +359,6 @@ For each target image:</p>
   <guid>https://rs-saran.github.io/projects/20241201_me_in_moments/</guid>
   <pubDate>Sat, 30 Nov 2024 18:30:00 GMT</pubDate>
   <media:content url="https://rs-saran.github.io/projects/20241201_me_in_moments/me_in_moments_logo_nobg.png" medium="image" type="image/png" height="95" width="144"/>
-</item>
-<item>
-  <title></title>
-  <link>https://rs-saran.github.io/projects/20250122_serene_solace_sakha/plan.html</link>
-  <description><![CDATA[ 
-
-
-
-
-<p>Here’s a milestone-based roadmap to guide your project development:</p>
-<hr>
-<section id="phase-1-research-and-planning" class="level3">
-<h3 class="anchored" data-anchor-id="phase-1-research-and-planning"><strong>Phase 1: Research and Planning</strong></h3>
-<ol type="1">
-<li><strong>Define Scope and Objectives</strong>
-<ul>
-<li>Finalize the chatbot’s purpose, boundaries, and core functionalities (e.g., emotional check-ins, activity suggestions).<br>
-</li>
-<li>Identify target audience and their needs.</li>
-</ul></li>
-<li><strong>Choose Tools and Technology Stack</strong>
-<ul>
-<li>Select the appropriate LLM platform (e.g., OpenAI API, Hugging Face).<br>
-</li>
-<li>Plan infrastructure for personalization (e.g., database for user preferences).</li>
-</ul></li>
-<li><strong>Design Personality and Behavior</strong>
-<ul>
-<li>Define bot persona (name, tone, style).<br>
-</li>
-<li>Write a system prompt to guide behavior.</li>
-</ul></li>
-<li><strong>Legal and Ethical Considerations</strong>
-<ul>
-<li>Ensure compliance with privacy regulations (GDPR, etc.).<br>
-</li>
-<li>Develop disclaimers and ethical boundaries for emotional support.</li>
-</ul></li>
-</ol>
-<hr>
-</section>
-<section id="phase-2-prototype-development" class="level3">
-<h3 class="anchored" data-anchor-id="phase-2-prototype-development"><strong>Phase 2: Prototype Development</strong></h3>
-<ol type="1">
-<li><strong>Core Features</strong>
-<ul>
-<li>Build a framework for initial personalization (ask targeted questions in first chat).<br>
-</li>
-<li>Implement empathetic and supportive response generation using LLMs.<br>
-</li>
-<li>Define fallback and escalation strategies for distressing inputs (e.g., directing to professional resources).</li>
-</ul></li>
-<li><strong>Database Integration</strong>
-<ul>
-<li>Create a system to store user preferences securely for personalized suggestions.</li>
-</ul></li>
-<li><strong>Safety Mechanisms</strong>
-<ul>
-<li>Implement filters for sensitive or harmful language.<br>
-</li>
-<li>Develop response templates for distress scenarios, including redirection to helplines.</li>
-</ul></li>
-</ol>
-<hr>
-</section>
-<section id="phase-3-testing-and-iteration" class="level3">
-<h3 class="anchored" data-anchor-id="phase-3-testing-and-iteration"><strong>Phase 3: Testing and Iteration</strong></h3>
-<ol type="1">
-<li><strong>Prototype Evaluation</strong>
-<ul>
-<li>Test the chatbot internally using AI-based evaluation and predefined benchmarks (relevance, empathy, safety).<br>
-</li>
-<li>Gather feedback from stakeholders and improve the bot.</li>
-</ul></li>
-<li><strong>Beta Launch</strong>
-<ul>
-<li>Release the bot to a small group of users for real-world testing.<br>
-</li>
-<li>Collect user feedback on empathy, personalization, and usability.</li>
-</ul></li>
-<li><strong>Iterate Based on Feedback</strong>
-<ul>
-<li>Refine conversation flows, improve personalization, and enhance safety mechanisms.</li>
-</ul></li>
-</ol>
-<hr>
-</section>
-<section id="phase-4-full-development" class="level3">
-<h3 class="anchored" data-anchor-id="phase-4-full-development"><strong>Phase 4: Full Development</strong></h3>
-<ol type="1">
-<li><strong>Scale Features</strong>
-<ul>
-<li>Add more activity suggestions based on user preferences.<br>
-</li>
-<li>Improve personalization by training a lightweight user model (optional).</li>
-</ul></li>
-<li><strong>Enhance Accessibility</strong>
-<ul>
-<li>Optimize the bot for multiple platforms (mobile, web, chat apps).</li>
-</ul></li>
-<li><strong>Polish UI/UX</strong>
-<ul>
-<li>Design a user-friendly interface for chat interactions.<br>
-</li>
-<li>Include visuals or interactive elements if needed.</li>
-</ul></li>
-</ol>
-<hr>
-</section>
-<section id="phase-5-deployment-and-maintenance" class="level3">
-<h3 class="anchored" data-anchor-id="phase-5-deployment-and-maintenance"><strong>Phase 5: Deployment and Maintenance</strong></h3>
-<ol type="1">
-<li><strong>Public Launch</strong>
-<ul>
-<li>Deploy the chatbot on the chosen platform(s).<br>
-</li>
-<li>Announce its availability to the target audience.</li>
-</ul></li>
-<li><strong>Monitor and Maintain</strong>
-<ul>
-<li>Set up analytics to track usage, satisfaction, and response quality.<br>
-</li>
-<li>Continuously update the bot with new activities and suggestions.<br>
-</li>
-<li>Regularly review flagged conversations for safety improvements.</li>
-</ul></li>
-</ol>
-<hr>
-</section>
-<section id="phase-6-expansion" class="level3">
-<h3 class="anchored" data-anchor-id="phase-6-expansion"><strong>Phase 6: Expansion</strong></h3>
-<ol type="1">
-<li><strong>Localization</strong>
-<ul>
-<li>Add support for multiple languages if needed.</li>
-</ul></li>
-<li><strong>Additional Features</strong>
-<ul>
-<li>Introduce seasonal or event-based suggestions (e.g., holiday activities).<br>
-</li>
-<li>Expand resource database with location-specific professional help options.</li>
-</ul></li>
-<li><strong>Community Engagement</strong>
-<ul>
-<li>Build a community of users to gather insights and improve the bot.</li>
-</ul></li>
-</ol>
-<hr>
-<p>Would you like help with any specific milestone or its details?</p>
-
-
-</section>
-
- ]]></description>
-  <guid>https://rs-saran.github.io/projects/20250122_serene_solace_sakha/plan.html</guid>
-  <pubDate>Wed, 16 Apr 2025 18:09:02 GMT</pubDate>
 </item>
 </channel>
 </rss>
