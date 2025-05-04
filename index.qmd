@@ -21,6 +21,6 @@ about:
 
 ::: {#bio}
 
-Hi there! I’m Saran. I specialize in data engineering, analytics, and machine learning, with a growing focus on machine learning. I’m passionate about uncovering insights and developing intelligent solutions to solve complex and impactful challenges. Outside of work, I’m an avid fan of martial cultivation stories, including mangas, manhwas, and web novels, and I also enjoy watching a variety of movies. Feel free to explore my site to learn more about my work and passions!
+Hi there! I’m Saran. Data Scientist with 2 years of proven experience in machine learning, data engineering, and analytics—developed and deployed intelligent systems that drive real-world impact at scale. I’m passionate about uncovering insights and developing intelligent solutions to solve complex and impactful challenges. Outside of work, I’m an avid fan of martial cultivation stories, including mangas, manhwas, and web novels, and I also enjoy watching a variety of movies. Feel free to explore my site to learn more about my work and passions!
 
 :::
