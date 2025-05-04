@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2025-04-16">
+<meta name="dcterms.date" content="2025-05-04">
 <meta name="description" content="A digital friend, designed to check in on you and help you improve your mood">
 
 <title>Sakha: Building a Chatbot That Cares – RS Saran</title>
@@ -76,7 +76,7 @@ ul.task-list li input[type="checkbox"] {
 <link rel="stylesheet" href="../../styles.css">
 </head>
 
-<body class="nav-fixed fullcontent">
+<body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top quarto-banner">
@@ -163,7 +163,7 @@ ul.task-list li input[type="checkbox"] {
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">April 16, 2025</p>
+        <p class="date">May 4, 2025</p>
       </div>
     </div>
     
@@ -174,7 +174,46 @@ ul.task-list li input[type="checkbox"] {
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#heres-what-sakha-is-designed-to-do-well" id="toc-heres-what-sakha-is-designed-to-do-well" class="nav-link" data-scroll-target="#heres-what-sakha-is-designed-to-do-well">Here’s what Sakha is designed to do well:</a></li>
+  <li><a href="#building-sakha-one-decision-at-a-time" id="toc-building-sakha-one-decision-at-a-time" class="nav-link" data-scroll-target="#building-sakha-one-decision-at-a-time">Building Sakha: One Decision at a Time</a>
+  <ul class="collapse">
+  <li><a href="#where-do-you-even-start" id="toc-where-do-you-even-start" class="nav-link" data-scroll-target="#where-do-you-even-start"><strong>Where Do You Even Start?</strong></a></li>
+  <li><a href="#choosing-the-mind-llms-and-how-i-picked-mine" id="toc-choosing-the-mind-llms-and-how-i-picked-mine" class="nav-link" data-scroll-target="#choosing-the-mind-llms-and-how-i-picked-mine"><strong>Choosing the Mind – LLMs and How I Picked Mine</strong></a></li>
+  <li><a href="#langgraph-giving-structure-to-conversations" id="toc-langgraph-giving-structure-to-conversations" class="nav-link" data-scroll-target="#langgraph-giving-structure-to-conversations"><strong>LangGraph – Giving Structure to Conversations</strong></a></li>
+  <li><a href="#flask-powering-interaction-with-the-bot" id="toc-flask-powering-interaction-with-the-bot" class="nav-link" data-scroll-target="#flask-powering-interaction-with-the-bot"><strong>Flask – Powering Interaction with the Bot</strong></a></li>
+  </ul></li>
+  <li><a href="#under-the-hood-core-components-that-make-sakha-work" id="toc-under-the-hood-core-components-that-make-sakha-work" class="nav-link" data-scroll-target="#under-the-hood-core-components-that-make-sakha-work">Under the Hood: Core Components That Make Sakha Work</a></li>
+  <li><a href="#a-day-in-the-life-of-a-message" id="toc-a-day-in-the-life-of-a-message" class="nav-link" data-scroll-target="#a-day-in-the-life-of-a-message">A Day in the Life of a Message</a></li>
+  <li><a href="#zooming-in-how-sakha-handles-every-message" id="toc-zooming-in-how-sakha-handles-every-message" class="nav-link" data-scroll-target="#zooming-in-how-sakha-handles-every-message">Zooming In: How Sakha Handles Every Message</a>
+  <ul class="collapse">
+  <li><a href="#supervisor-making-the-first-decision" id="toc-supervisor-making-the-first-decision" class="nav-link" data-scroll-target="#supervisor-making-the-first-decision"><strong>Supervisor: Making the First Decision</strong></a></li>
+  <li><a href="#chat-engine-generating-context-aware-responses" id="toc-chat-engine-generating-context-aware-responses" class="nav-link" data-scroll-target="#chat-engine-generating-context-aware-responses"><strong>Chat Engine: Generating Context-Aware Responses</strong></a></li>
+  </ul></li>
+  <li><a href="#making-sakha-personal-memory-preferences-and-context" id="toc-making-sakha-personal-memory-preferences-and-context" class="nav-link" data-scroll-target="#making-sakha-personal-memory-preferences-and-context">Making Sakha Personal: Memory, Preferences, and Context</a>
+  <ul class="collapse">
+  <li><a href="#activity-preferences-and-session-context" id="toc-activity-preferences-and-session-context" class="nav-link" data-scroll-target="#activity-preferences-and-session-context">Activity Preferences and Session Context</a></li>
+  <li><a href="#structured-summarization-for-long-conversations" id="toc-structured-summarization-for-long-conversations" class="nav-link" data-scroll-target="#structured-summarization-for-long-conversations">Structured Summarization for Long Conversations</a></li>
+  <li><a href="#memories-through-feedback" id="toc-memories-through-feedback" class="nav-link" data-scroll-target="#memories-through-feedback">Memories Through Feedback</a></li>
+  <li><a href="#whats-missing-today" id="toc-whats-missing-today" class="nav-link" data-scroll-target="#whats-missing-today">What’s Missing Today</a></li>
+  </ul></li>
+  <li><a href="#testing-sakha-what-were-evaluating-and-how" id="toc-testing-sakha-what-were-evaluating-and-how" class="nav-link" data-scroll-target="#testing-sakha-what-were-evaluating-and-how">Testing Sakha: What We’re Evaluating and How</a>
+  <ul class="collapse">
+  <li><a href="#sakha-chatbot-evaluation-rubric" id="toc-sakha-chatbot-evaluation-rubric" class="nav-link" data-scroll-target="#sakha-chatbot-evaluation-rubric">🌱 <strong>Sakha Chatbot Evaluation Rubric</strong></a></li>
+  <li><a href="#overall-evaluation" id="toc-overall-evaluation" class="nav-link" data-scroll-target="#overall-evaluation">🧾 <strong>Overall Evaluation</strong></a></li>
+  </ul></li>
+  <li><a href="#whats-next-closing-thoughts" id="toc-whats-next-closing-thoughts" class="nav-link" data-scroll-target="#whats-next-closing-thoughts">What’s Next &amp; Closing Thoughts</a>
+  <ul class="collapse">
+  <li><a href="#whats-next" id="toc-whats-next" class="nav-link" data-scroll-target="#whats-next">What’s Next:</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content quarto-banner-title-block" id="quarto-document-content">
 
@@ -182,19 +221,28 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<p><a href="https://github.com/rs-saran/serene-solace-sakha" class="btn" target="_blank"><i class="fa-brands fa-github" aria-label="github"></i> source code</a> <a href="https://github.com/rs-saran/serene-solace-sophy/blob/main/example_chat.txt" class="btn" target="_blank"><i class="fa-solid fa-bars" aria-label="bars"></i> demo chat</a> <br></p>
+<p><a href="https://github.com/rs-saran/serene-solace-sakha" class="btn" target="_blank"><i class="fa-brands fa-github" aria-label="github"></i> source code</a> <!-- [ demo chat](https://github.com/rs-saran/serene-solace-sophy/blob/main/example_chat.txt){.btn target=_blank} --> <br></p>
 <section id="introduction" class="level3">
 <h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
 <p>In today’s fast-paced world, many of us silently wrestle with stress, loneliness, and emotional overwhelm. Therapy is a powerful avenue for healing, but not everyone needs—or can access—that level of care. Sometimes, all it takes is a gentle check-in, a thoughtful nudge, or the simple comfort of feeling seen.</p>
-<p>That’s where Sakha began. Not as a replacement for professional help, but as a small, caring presence—always there, always listening. A friend in your pocket, ready to ask how you’re doing, suggest something that might lift your mood, or simply sit with you in a moment of stillness.</p>
+<p>That’s where Sakha began—not as a replacement for professional help, but as a small, caring presence always within reach. Not as a replacement for professional help, but as a small, caring presence—always there, always listening. A friend in your pocket, ready to ask how you’re doing, suggest something that might lift your mood, or simply sit with you in a moment of stillness.</p>
 <p>The vision was simple yet ambitious: create a chatbot that doesn’t just respond, but genuinely cares. One that offers warmth, understanding, and personalized encouragement—without judgment, pressure, or pretense.</p>
 <p>The name Sakha, meaning “friend” in Sanskrit, wasn’t chosen lightly. It reflected the heart of what I wanted this project to embody: a companion who listens, nudges, and supports without judgment. Someone who remembers that you enjoy walks when you’re anxious, or that music lifts your mood when you’re feeling off.</p>
 <p><strong>Scope of the Project</strong></p>
-<p>A human friend can do many things—offer advice, share personal experiences, comfort you in tough times, or challenge your ideas. The list goes on and on, and no chatbot could hope to replicate all of that depth.</p>
-<p>With Sakha, the aim wasn’t to do everything a human friend does but to offer a <em>starting point</em>—a focused subset of what a caring friend might provide in the everyday moments when you just need a check-in, a small nudge, or a reminder to care for yourself.</p>
-<p>Key functions included: - Checking in on your emotional well-being. - Suggesting activities to boost mood or break a cycle of stress. - Offering a non-judgmental space to reflect or receive gentle reminders.</p>
+<p>Sakha isn’t trying to replace a human friend. It doesn’t claim to have all the answers or the emotional depth of years-long relationships. But what it <em>does</em> aim to be is something quite intentional: a steady, caring companion that’s always available—especially in moments when reaching out to a real person feels hard.</p>
+<p>Instead of aiming for general-purpose conversation or entertainment, Sakha focuses on a specific emotional use-case:<br>
+&gt; Supporting users in their day-to-day mental well-being through gentle check-ins, helpful activity nudges, and empathetic conversation.</p>
+</section>
+<section id="heres-what-sakha-is-designed-to-do-well" class="level3">
+<h3 class="anchored" data-anchor-id="heres-what-sakha-is-designed-to-do-well">Here’s what Sakha is designed to do well:</h3>
+<ul>
+<li><strong>Recognize emotional states</strong> and adapt its responses accordingly.</li>
+<li><strong>Suggest meaningful actions</strong> like personalized self-care activities, not generic tips.</li>
+<li><strong>Hold continuity</strong> across a session and maintain contextual memory, enabling more nuanced and human-like responses.</li>
+<li><strong>Handle sensitive situations</strong> with care, offering support resources rather than pretending to be a therapist.</li>
+<li><strong>Balance modularity and empathy</strong>—using structured flows powered by LangGraph, but never sounding robotic.</li>
+</ul>
 <p>It’s a limited scope, yes, but it’s a foundation—one that can evolve over time as we explore more complex interactions, while keeping things simple and meaningful in the beginning.</p>
-<p>Thanks for the details—that’s super helpful. Here’s how I suggest we structure the rest of the blog, staying true to your voice and reflecting the actual journey you had. The tone will still be narrative but will sneak in technical insights through storytelling, not a dry dump.</p>
 <hr>
 </section>
 <section id="building-sakha-one-decision-at-a-time" class="level2">
@@ -211,7 +259,7 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>Flexibility</strong>: It supports open-source models like LLaMA3.3, which means I’m not locked into one ecosystem.</li>
 <li><strong>Future-ready</strong>: I can always self-host these models later if needed, thanks to their open-source nature.</li>
 </ul>
-<p>I wrapped this through <strong>LangChain</strong>, which made it super easy to swap out models during experimentation and build proofs-of-concept quickly without worrying about underlying LLM plumbing.</p>
+<p>I wrapped this through <strong>LangChain</strong>, which makes it easy to swap out models during experimentation and build proofs-of-concept quickly without worrying about underlying LLM plumbing.</p>
 <hr>
 </section>
 <section id="langgraph-giving-structure-to-conversations" class="level3">
@@ -227,34 +275,245 @@ ul.task-list li input[type="checkbox"] {
 <p>LangGraph powers Sakha’s <strong>conversation graph</strong>—the engine that routes how chats progress depending on context and user state.</p>
 <hr>
 </section>
-<section id="why-flask-for-the-ui" class="level3">
-<h3 class="anchored" data-anchor-id="why-flask-for-the-ui"><strong>Why Flask for the UI?</strong></h3>
-<p>I kept the frontend simple—just a few HTML pages with some JavaScript—but even that needed a stable backend.</p>
-<p><strong>Flask</strong> fit perfectly: - Lightweight and quick to set up - Easy to plug into Python-based LLM pipelines - Great for rapid prototyping and deployment</p>
-<p>It let me focus on core logic without worrying about UI framework overhead.</p>
-<hr>
-</section>
-<section id="core-internals-a-quick-tour" class="level3">
-<h3 class="anchored" data-anchor-id="core-internals-a-quick-tour"><strong>Core Internals – A Quick Tour</strong></h3>
-<p>At the heart of Sakha, there are a few key components:</p>
-<section id="conversation-processor" class="level4">
-<h4 class="anchored" data-anchor-id="conversation-processor"><strong>Conversation Processor</strong></h4>
-<p>The entry point. It: - Takes the user’s input - Does basic preprocessing (cleaning, formatting) - Passes it through the conversation graph to get an appropriate response</p>
-</section>
-<section id="supervisor-node" class="level4">
-<h4 class="anchored" data-anchor-id="supervisor-node"><strong>Supervisor Node</strong></h4>
-<p>The first stop in every conversation. - It determines if the bot should continue with a normal conversation or escalate to crisis support - This was important: we wanted to <em>check in</em> on users, but also not ignore red flags when they show up</p>
-</section>
-<section id="chat-engine" class="level4">
-<h4 class="anchored" data-anchor-id="chat-engine"><strong>Chat Engine</strong></h4>
-<p>If the conversation isn’t a crisis, we route it here. - It decides which chat flow to run: <code>activity suggestion</code>, <code>reminder</code>, or <code>follow-up</code> - This modularity helps keep the system clean - Each flow exists because <em>one prompt can’t do everything</em>—we needed different instructions, behaviors, and tools depending on the use case</p>
-<p>This structure helped us build conversations that felt purpose-driven while still being emotionally supportive.</p>
+<section id="flask-powering-interaction-with-the-bot" class="level3">
+<h3 class="anchored" data-anchor-id="flask-powering-interaction-with-the-bot"><strong>Flask – Powering Interaction with the Bot</strong></h3>
+<p>I used <strong>Flask</strong> not just to power Sakha’s simple UI but also to serve the core APIs that make chatting with the bot possible.</p>
+<p>On the frontend, I kept things minimal—basic HTML and JavaScript for quick interactions. But behind the scenes, Flask handled the important parts: receiving user input, sending it to the LLM pipeline, and returning thoughtful responses.</p>
+<p>It was the ideal choice because: - It’s lightweight and easy to set up. - It integrates seamlessly with Python, which is what the rest of Sakha is built on. - It made building both a simple web UI and a chat API straightforward and fast.</p>
+<p>In short, Flask gave me just enough without getting in the way—letting me focus on what mattered most: the experience of the conversation.</p>
 <hr>
 </section>
 </section>
+<section id="under-the-hood-core-components-that-make-sakha-work" class="level2">
+<h2 class="anchored" data-anchor-id="under-the-hood-core-components-that-make-sakha-work">Under the Hood: Core Components That Make Sakha Work</h2>
+<p>At its heart, Sakha is more than just a chatbot—it’s a thoughtfully layered system designed to feel human, stay context-aware, and respond with care. Instead of relying on a single prompt-response loop, I built Sakha around a modular architecture where each component has a clear responsibility.</p>
+<p>Here’s a quick overview of the main building blocks:</p>
+<ul>
+<li><strong>Conversation Processor</strong> – The entry point for all incoming user messages. It handles preprocessing of the <code>user_input</code> and streams it through the conversation graph.</li>
+<li><strong>Conversation Graph (LangGraph)</strong> – A dynamic flow engine that guides conversations using stateful, branching logic. This is where Sakha’s adaptability comes from.</li>
+<li><strong>Conversation State</strong> – A session-unique state object passed through the entire graph, allowing context to persist and evolve throughout the interaction.</li>
+<li><strong>Supervisor</strong> – A smart dispatcher that decides <em>what kind</em> of conversation Sakha should engage in—whether it’s a normal chat, an activity suggestion, or even a crisis intervention.</li>
+<li><strong>Crisis Handler</strong> – A specialized module triggered when signs of emotional distress are detected. It provides professional, 24/7 toll-free helpline numbers that users can reach out to.</li>
+<li><strong>Chat Engine</strong> – The actual brain behind the conversations, powered by the LLM and dynamically generated prompts based on context and flow.</li>
+<li><strong>User, Checkpoint, and Memory Managers</strong> – These handle persistent storage: tracking user info, conversation history, and flow progress across sessions.</li>
+<li><strong>Response Templates</strong> – Modular prompt templates that ensure Sakha’s tone stays consistent and compassionate, while allowing for personalization based on user data.</li>
+</ul>
+<p>Each of these pieces plays a role in making Sakha feel less like a machine—and more like a friend who listens, remembers, and responds with care.</p>
+<hr>
+</section>
+<section id="a-day-in-the-life-of-a-message" class="level2">
+<h2 class="anchored" data-anchor-id="a-day-in-the-life-of-a-message">A Day in the Life of a Message</h2>
+<p>So, what actually happens when you type “I’m feeling off today” into Sakha?</p>
+<p>While the reply might seem instant and effortless, under the hood, a lot of thought goes into how that message is received, processed, and responded to—with care, context, and relevance.</p>
+<p>Here’s how a single message flows through Sakha’s system:</p>
+<ol type="1">
+<li><p><strong>UI → Server</strong><br>
+The message begins its journey in the lightweight frontend—a simple HTML/JavaScript interface. When you hit send, the text is forwarded to the backend via a websocket of Flask server, which acts as the bridge between the user and Sakha’s internal logic.</p></li>
+<li><p><strong>Flask Endpoint → Conversation Processor</strong><br>
+Once the message reaches the server, it’s handed off to the Conversation Processor—the orchestrator of the system. It performs preprocessing and streams the message into the conversation graph, ultimately receiving a response that’s passed back to the server.</p>
+<p>If a follow-up or reminder is due, Sakha’s scheduler triggers dedicated Flask endpoints (<code>/reminder</code>, <code>/followup</code>) which initiate their flows independently.</p>
+<p>For new sessions, the server also initializes a fresh Conversation Graph and Conversation State, which are then passed to the processor for handling.</p></li>
+<li><p><strong>Conversation Processor → Conversation Graph (LangGraph)</strong><br>
+The Conversation Processor injects the input into the Conversation Graph, powered by LangGraph. This graph consists of modular nodes and conditional transitions, allowing Sakha to intelligently route the conversation depending on user intent and state.</p></li>
+<li><p><strong>Supervisor Node → Chat Flow Decision</strong><br>
+Early in the graph, the <strong>Supervisor</strong> node evaluates the input and context. It determines whether this message should enter a general chat flow, trigger an activity suggestion, or—if necessary—be flagged for the <strong>Crisis Handler</strong>.</p></li>
+<li><p><strong>Flow Execution → Chat Engine</strong><br>
+Once the appropriate flow is selected, the relevant nodes are executed. These call into the <strong>Chat Engine</strong>, which builds the final LLM prompt using conversation state and sends it to the model (e.g., LLaMA3.3 via Groq API). The response is parsed and formatted.</p></li>
+<li><p><strong>Server → UI</strong><br>
+Finally, the crafted response is returned through the websocket and rendered in the chat UI. To the user, it feels like a natural, thoughtful message—just from a friend who’s really listening.</p></li>
+</ol>
+<hr>
+<p>This flow isn’t just functional—it’s designed for empathy. Each step is intentional, focused on making the interaction feel personal, seamless, and emotionally aware.</p>
+<hr>
+</section>
+<section id="zooming-in-how-sakha-handles-every-message" class="level2">
+<h2 class="anchored" data-anchor-id="zooming-in-how-sakha-handles-every-message">Zooming In: How Sakha Handles Every Message</h2>
+<p>Let’s take a closer look at what happens <strong>after</strong> a message enters Sakha’s system—how it decides what kind of response to generate, which flow to trigger, and how it tracks everything in between.</p>
+<section id="supervisor-making-the-first-decision" class="level3">
+<h3 class="anchored" data-anchor-id="supervisor-making-the-first-decision"><strong>Supervisor: Making the First Decision</strong></h3>
+<p>Every message first arrives at the <strong>Supervisor</strong> node within the LangGraph-powered conversation graph. This is an LLM-based decision point that examines both the latest user input and the ongoing <strong>conversation state</strong> to determine the appropriate direction for the chat.</p>
+<p>Here’s what the Supervisor might decide: - <strong>Crisis Detected</strong> → The flow is routed to the <strong>Crisis Handler</strong>, which shares 24/7 toll-free helpline numbers, ensuring the user has access to professional support. - <strong>No Crisis</strong> → The message is routed to the <strong>Chat Engine</strong>, along with a flow directive:<br>
+<code>normal_chat</code>, <code>activity_suggestion</code>, <code>reminder</code>, or <code>follow_up</code>.</p>
+<hr>
+</section>
+<section id="chat-engine-generating-context-aware-responses" class="level3">
+<h3 class="anchored" data-anchor-id="chat-engine-generating-context-aware-responses"><strong>Chat Engine: Generating Context-Aware Responses</strong></h3>
+<p>The <strong>Chat Engine</strong> is where Sakha’s intelligence comes to life. It’s responsible for crafting thoughtful, structured responses by leveraging multiple subcomponents:</p>
+<ol type="1">
+<li><p><strong>Summarizer</strong><br>
+If the current context is too long for the LLM window, the summarizer condenses it and stores the summary in the <strong>conversation state</strong>—preserving emotional and contextual continuity.</p></li>
+<li><p><strong>Chat Flow Manager</strong><br>
+Based on the Supervisor’s directive, this module retrieves the appropriate <strong>chat flow object</strong>, which contains prompts and logic for one of the following flows:</p>
+<h4 id="current-chat-flows" class="anchored">Current Chat Flows:</h4>
+<ul>
+<li><p><strong><code>normal_chat</code></strong>: A general conversation mode where Sakha checks in on the user’s well-being. If signs of a low mood are detected, the Supervisor may switch the flow to <code>activity_suggestion</code>.</p></li>
+<li><p><strong><code>activity_suggestion</code></strong>: Here, Sakha suggests mood-boosting activities tailored to the user’s emotional state and preferences. A key feature is a <strong>RAG (Retrieval-Augmented Generation)</strong> module using Qdrant to find past activities the user engaged in under similar circumstances (indexed by a situation embedding). If the user agrees, Sakha sets a reminder. If not, it may shift the flow back to <code>normal_chat</code>.</p></li>
+<li><p><strong><code>reminder</code></strong>: Triggered externally by <strong>APScheduler</strong> when a reminder is due. Sakha gently motivates the user to carry out the scheduled activity. If the user declines or changes their mind, the Supervisor can redirect to <code>normal_chat</code>.</p></li>
+<li><p><strong><code>follow_up</code></strong>: Also triggered by <strong>APScheduler</strong>, but after the activity window has passed. Sakha asks for feedback, which is stored in memory using Qdrant and appended to the activity log.</p></li>
+</ul></li>
+<li><p><strong>Response Manager</strong><br>
+Each flow returns a <strong>structured response</strong> using Sakha’s consistent, modular <strong>Response Templates</strong>. The Response Manager handles these to:</p>
+<ul>
+<li>Store reminders and feedback in the appropriate database via the <strong>Reminder Manager</strong>.</li>
+<li>Log activity outcomes and mood feedback in long-term memory.</li>
+<li>Format the response for final delivery.</li>
+</ul></li>
+</ol>
+<p>Finally, once the response is generated and sent back, the <strong>conversation history</strong> and any relevant updates are written back to the <strong>conversation state</strong>, ready for the next interaction.</p>
+</section>
+</section>
+<section id="making-sakha-personal-memory-preferences-and-context" class="level2">
+<h2 class="anchored" data-anchor-id="making-sakha-personal-memory-preferences-and-context">Making Sakha Personal: Memory, Preferences, and Context</h2>
+<p>One of Sakha’s core goals is to feel <em>personal</em>—not just in tone, but in how it remembers and responds based on your past experiences. While it’s still early in development, the foundation for a memory-aware system is already in place.</p>
+<section id="activity-preferences-and-session-context" class="level3">
+<h3 class="anchored" data-anchor-id="activity-preferences-and-session-context">Activity Preferences and Session Context</h3>
+<p>When a user first registers, their <strong>activity preferences</strong> are collected and stored in a Postgres database. These preferences—like enjoying walks, listening to music, or journaling—are retrieved every time a new conversation begins and injected into the <strong>conversation state</strong>, allowing Sakha to suggest relevant activities right from the start.</p>
+</section>
+<section id="structured-summarization-for-long-conversations" class="level3">
+<h3 class="anchored" data-anchor-id="structured-summarization-for-long-conversations">Structured Summarization for Long Conversations</h3>
+<p>To manage lengthy conversations and keep the LLM within token limits, Sakha uses a summarizer component after every 10 exchanges to generate summary. Rather than generating freeform summaries, Sakha uses a structured template to ensure consistency and easy updating:</p>
+<p><strong>Summary Format:</strong></p>
+<pre><code>1. Main Topic:
+2. Key Things the User Said:
+3. Key Things Sakha Said or Did:
+4. Decisions or Plans Made:
+5. Unresolved Topics or Follow-Ups:</code></pre>
+<p>This summary is stored in the conversation state and passed across nodes during the conversation flow, allowing Sakha to remain context-aware even when the raw message history grows too large.</p>
+</section>
+<section id="memories-through-feedback" class="level3">
+<h3 class="anchored" data-anchor-id="memories-through-feedback">Memories Through Feedback</h3>
+<p>After each activity, Sakha checks in through the <strong>follow-up flow</strong> to ask how it went. The responses—whether the activity was completed, enjoyed, skipped, or why—are stored as <strong>memories</strong> using <strong>Qdrant</strong>, a vector store optimized for similarity search.</p>
+<p>To make these memories searchable and context-aware, Sakha uses the <code>BAAI/bge-small-en-v1.5</code> model to convert the user’s situation into an <strong>embedding vector</strong>, which becomes the index key for Qdrant. The stored memory includes:</p>
+<ul>
+<li><code>user_id</code>, <code>thread_id</code>, <code>activity_id</code></li>
+<li><code>user_situation</code>: the emotional or contextual input from the user</li>
+<li><code>activity_name</code>, <code>duration</code></li>
+<li>Whether the activity was <strong>completed</strong></li>
+<li>A <strong>score of enjoyment</strong></li>
+<li>Any <strong>reason for skipping</strong></li>
+<li>A <code>timestamp</code> of when the feedback was submitted</li>
+</ul>
+<p>This structure enables Sakha to later suggest activities that have worked in similar emotional contexts, not just random options.</p>
+</section>
+<section id="whats-missing-today" class="level3">
+<h3 class="anchored" data-anchor-id="whats-missing-today">What’s Missing Today</h3>
+<p>At this stage, Sakha doesn’t support <em>conversational memory</em> across sessions. That means users can’t yet say things like “Remember what we did last week?” or “Let’s do the walk again,” and expect Sakha to recall past chats or actions explicitly.</p>
+<p>Currently, memory is limited to: - In-session context - Activity preferences - Feedback-driven memories for activity suggestions</p>
+<p>But this limitation is by design. The goal is to first get structured memory and recall right—ensuring that Sakha offers helpful, accurate nudges based on feedback—before expanding into long-term conversational memory.</p>
+<hr>
+</section>
+</section>
+<section id="testing-sakha-what-were-evaluating-and-how" class="level2">
+<h2 class="anchored" data-anchor-id="testing-sakha-what-were-evaluating-and-how">Testing Sakha: What We’re Evaluating and How</h2>
+<p>Before Sakha is released more broadly, it’s essential to understand not just whether it works—but <em>how well</em> it supports, listens, and responds to real users. The current plan is to manually test interactions with a mix of real users and AI-generated simulated conversations, with a human evaluator scoring each chat based on the following <strong>rubric</strong>.</p>
+<p>This rubric is designed to balance emotional intelligence, usability, personalization, and safety—everything that makes Sakha feel like more than a script.</p>
+<hr>
+<section id="sakha-chatbot-evaluation-rubric" class="level3">
+<h3 class="anchored" data-anchor-id="sakha-chatbot-evaluation-rubric">🌱 <strong>Sakha Chatbot Evaluation Rubric</strong></h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 7%">
+<col style="width: 66%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Criteria</strong></th>
+<th><strong>Rating (1–5)</strong></th>
+<th><strong>What We’re Looking For</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Emotional Intelligence &amp; Encouragement</strong></td>
+<td></td>
+<td>Does Sakha express empathy, validate the user’s feelings, and offer uplifting, compassionate responses without being preachy or robotic?</td>
+</tr>
+<tr class="even">
+<td><strong>Tone Balance (Including Humor)</strong></td>
+<td></td>
+<td>Is the tone warm, kind, and emotionally appropriate? Is humor used carefully to lighten mood without undermining the situation?</td>
+</tr>
+<tr class="odd">
+<td><strong>Clarity &amp; Simplicity of Responses</strong></td>
+<td></td>
+<td>Are the responses easy to understand, jargon-free, and structured clearly for the user’s mental/emotional state?</td>
+</tr>
+<tr class="even">
+<td><strong>Personalization &amp; Contextual Awareness</strong></td>
+<td></td>
+<td>Does Sakha adapt to user preferences, past feedback, or the current mood? Does it feel like a <em>personal</em> assistant, not just a generic chatbot?</td>
+</tr>
+<tr class="odd">
+<td><strong>Memory Usage (Preferences &amp; Feedback Recall)</strong></td>
+<td></td>
+<td>Is previously stored data (e.g., activity preferences, feedback on past activities) reflected appropriately in recommendations or tone?</td>
+</tr>
+<tr class="even">
+<td><strong>Adaptability to User Mood &amp; Engagement</strong></td>
+<td></td>
+<td>Can Sakha shift gears—be it from light conversation to deeper support or vice versa—based on mood signals or disengagement?</td>
+</tr>
+<tr class="odd">
+<td><strong>Privacy &amp; Boundary Respect</strong></td>
+<td></td>
+<td>Does Sakha avoid prying questions, handle sensitive topics gracefully, and make the user feel emotionally safe throughout the interaction?</td>
+</tr>
+<tr class="even">
+<td><strong>Encouragement Toward Self-care or Action</strong></td>
+<td></td>
+<td>Are nudges toward activity or self-care natural, timely, and well-aligned with user readiness or preferences?</td>
+</tr>
+<tr class="odd">
+<td><strong>Crisis Sensitivity &amp; Handling</strong></td>
+<td></td>
+<td>Does Sakha detect possible signs of distress and route the user appropriately (e.g., to a crisis handler)? Does it avoid triggering or insensitive responses?</td>
+</tr>
+<tr class="even">
+<td><strong>Response Consistency &amp; Identity</strong></td>
+<td></td>
+<td>Is Sakha’s tone, values, and personality consistent throughout conversations—even across sessions?</td>
+</tr>
+<tr class="odd">
+<td><strong>Overall Flow &amp; Conversation Coherence</strong></td>
+<td></td>
+<td>Do the messages feel like part of a thoughtful, coherent interaction rather than disjointed replies?</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="overall-evaluation" class="level3">
+<h3 class="anchored" data-anchor-id="overall-evaluation">🧾 <strong>Overall Evaluation</strong></h3>
+<ul>
+<li><p><strong>Strengths</strong>:<br>
+<em>(What aspects of Sakha’s performance were particularly impressive or emotionally resonant?)</em></p></li>
+<li><p><strong>Areas for Improvement</strong>:<br>
+<em>(Where did it fall short? Any awkwardness, missed cues, or technical slips?)</em></p></li>
+<li><p><strong>Final Rating</strong>:<br>
+<em>(Sum of all individual scores. Used for comparative tracking as testing progresses.)</em></p></li>
+</ul>
+<hr>
+<p>This rubric will evolve with usage. Early testing will be fully manual, with notes and reflections gathered from test users and evaluators. In the long run, the plan is to partially automate this process using LLMs as scoring agents on synthetic data.</p>
+<p>Here’s a suggestion for the <strong>final section</strong> to wrap up the blog with forward-looking momentum and a reflective close:</p>
+<hr>
+</section>
+</section>
+<section id="whats-next-closing-thoughts" class="level2">
+<h2 class="anchored" data-anchor-id="whats-next-closing-thoughts">What’s Next &amp; Closing Thoughts</h2>
+<p>Sakha started as an idea—to build a chatbot that doesn’t just reply, but <em>connects</em>. From managing structured flows to handling complex emotional contexts, every piece of Sakha was designed with empathy and adaptability in mind. But this is only the beginning.</p>
 <section id="whats-next" class="level3">
-<h3 class="anchored" data-anchor-id="whats-next"><strong>What’s Next?</strong></h3>
-<p>Sakha isn’t finished—there are plans for better testing, more flows, and richer context tracking. But the current system is functional, modular, and grounded in thoughtful decisions that balance feasibility with ambition.</p>
+<h3 class="anchored" data-anchor-id="whats-next">What’s Next:</h3>
+<ul>
+<li><strong>User Testing &amp; Iteration</strong>: With the core in place, the next step is structured testing using the evaluation rubric above. This feedback loop will guide refinement—both in how Sakha speaks and how it reasons.</li>
+<li><strong>Deeper Memory &amp; Personalization</strong>: One limitation today is the lack of long-term memory in natural conversation. The next version will allow users to refer to past chats, explore past activity feedback, and reflect over time.</li>
+<li><strong>Multimodal and Voice Interfaces</strong>: Conversations don’t always have to be typed. Voice input and lightweight emotion detection are on the roadmap for future iterations.</li>
+<li><strong>Open Source + Deployment</strong>: Sakha will likely be open-sourced with clear documentation, so others can build on it or adapt it to their own domains—whether mental health, coaching, or companionship.</li>
+</ul>
+<hr>
+<p>At its heart, Sakha is a human-first system—less about flashy features, more about thoughtful design. It’s far from perfect, but it’s trying. And sometimes, that’s exactly what we need: something (or someone) that listens, remembers, and tries to help, gently.</p>
+<p>Thanks for reading. 💙</p>
+<hr>
 
 
 </section>

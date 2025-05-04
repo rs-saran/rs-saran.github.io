@@ -2,9 +2,9 @@
 title: "Sakha: Building a Chatbot That Cares"
 description: |
   A digital friend, designed to check in on you and help you improve your mood
-date: 2025-04-16
+date: 2025-05-04
 categories: [NLP, chat-bot, LLM]
-image: serene_solace_logo_nobg.png
+image: sakha_logo_nobg.png
 draft: false
 toc: true
 ---
