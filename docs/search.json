@@ -145,5 +145,12 @@
     "title": "Sakha: Building a Chatbot That Cares",
     "section": "What’s Next & Closing Thoughts",
     "text": "What’s Next & Closing Thoughts\nSakha started as an idea—to build a chatbot that doesn’t just reply, but connects. From managing structured flows to handling complex emotional contexts, every piece of Sakha was designed with empathy and adaptability in mind. But this is only the beginning.\n\nWhat’s Next:\n\nUser Testing & Iteration: With the core in place, the next step is structured testing using the evaluation rubric above. This feedback loop will guide refinement—both in how Sakha speaks and how it reasons.\nDeeper Memory & Personalization: One limitation today is the lack of long-term memory in natural conversation. The next version will allow users to refer to past chats, explore past activity feedback, and reflect over time.\nMultimodal and Voice Interfaces: Conversations don’t always have to be typed. Voice input and lightweight emotion detection are on the roadmap for future iterations.\nOpen Source + Deployment: Sakha will likely be open-sourced with clear documentation, so others can build on it or adapt it to their own domains—whether mental health, coaching, or companionship.\n\n\nAt its heart, Sakha is a human-first system—less about flashy features, more about thoughtful design. It’s far from perfect, but it’s trying. And sometimes, that’s exactly what we need: something (or someone) that listens, remembers, and tries to help, gently.\nThanks for reading. 💙"
+  },
+  {
+    "objectID": "sakha/index.html",
+    "href": "sakha/index.html",
+    "title": "RS Saran",
+    "section": "",
+    "text": "Redirecting…\n\n\n\n\n\n\nIf you are not redirected automatically, follow this link."
   }
 ]
