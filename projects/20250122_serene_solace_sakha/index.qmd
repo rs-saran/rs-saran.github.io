@@ -106,4 +106,139 @@ Each of these pieces plays a role in making Sakha feel less like a machine—and
 ---
 
 
+## A Day in the Life of a Message
+
+So, what actually happens when you type “I’m feeling off today” into Sakha?
+
+While the reply might seem instant and effortless, under the hood, a lot of thought goes into how that message is received, processed, and responded to—with care, context, and relevance.
+
+Here’s how a single message flows through Sakha’s system:
+
+1. **UI → Server**  
+   The message begins its journey in the lightweight frontend—a simple HTML/JavaScript interface. When you hit send, the text is forwarded to the backend via a websocket of Flask server, which acts as the bridge between the user and Sakha’s internal logic.
+
+2. **Flask Endpoint → Conversation Processor**  
+   Once the message reaches the server, it’s handed off to the Conversation Processor—the orchestrator of the system. It performs preprocessing and streams the message into the conversation graph, ultimately receiving a response that’s passed back to the server.
+
+   If a follow-up or reminder is due, Sakha’s scheduler triggers dedicated Flask endpoints (`/reminder`, `/followup`) which initiate their flows independently.
+
+   For new sessions, the server also initializes a fresh Conversation Graph and Conversation State, which are then passed to the processor for handling.
+
+3. **Conversation Processor → Conversation Graph (LangGraph)**  
+   The Conversation Processor injects the input into the Conversation Graph, powered by LangGraph. This graph consists of modular nodes and conditional transitions, allowing Sakha to intelligently route the conversation depending on user intent and state.
+
+4. **Supervisor Node → Chat Flow Decision**  
+   Early in the graph, the **Supervisor** node evaluates the input and context. It determines whether this message should enter a general chat flow, trigger an activity suggestion, or—if necessary—be flagged for the **Crisis Handler**.
+
+5. **Flow Execution → Chat Engine**  
+   Once the appropriate flow is selected, the relevant nodes are executed. These call into the **Chat Engine**, which builds the final LLM prompt using conversation state and sends it to the model (e.g., LLaMA3.3 via Groq API). The response is parsed and formatted.
+
+6. **Server → UI**  
+   Finally, the crafted response is returned through the websocket and rendered in the chat UI. To the user, it feels like a natural, thoughtful message—just from a friend who's really listening.
+
+---
+
+This flow isn’t just functional—it’s designed for empathy. Each step is intentional, focused on making the interaction feel personal, seamless, and emotionally aware.
+
+---
+
+## Zooming In: How Sakha Handles Every Message
+
+Let’s take a closer look at what happens **after** a message enters Sakha’s system—how it decides what kind of response to generate, which flow to trigger, and how it tracks everything in between.
+
+### **Supervisor: Making the First Decision**
+
+Every message first arrives at the **Supervisor** node within the LangGraph-powered conversation graph. This is an LLM-based decision point that examines both the latest user input and the ongoing **conversation state** to determine the appropriate direction for the chat.
+
+Here’s what the Supervisor might decide:
+- **Crisis Detected** → The flow is routed to the **Crisis Handler**, which shares 24/7 toll-free helpline numbers, ensuring the user has access to professional support.
+- **No Crisis** → The message is routed to the **Chat Engine**, along with a flow directive:  
+  `normal_chat`, `activity_suggestion`, `reminder`, or `follow_up`.
+
+---
+
+### **Chat Engine: Generating Context-Aware Responses**
+
+The **Chat Engine** is where Sakha’s intelligence comes to life. It’s responsible for crafting thoughtful, structured responses by leveraging multiple subcomponents:
+
+1. **Summarizer**  
+   If the current context is too long for the LLM window, the summarizer condenses it and stores the summary in the **conversation state**—preserving emotional and contextual continuity.
+
+2. **Chat Flow Manager**  
+   Based on the Supervisor’s directive, this module retrieves the appropriate **chat flow object**, which contains prompts and logic for one of the following flows:
+
+   #### Current Chat Flows:
+
+   - **`normal_chat`**: A general conversation mode where Sakha checks in on the user’s well-being. If signs of a low mood are detected, the Supervisor may switch the flow to `activity_suggestion`.
+   
+   - **`activity_suggestion`**: Here, Sakha suggests mood-boosting activities tailored to the user’s emotional state and preferences. A key feature is a **RAG (Retrieval-Augmented Generation)** module using Qdrant to find past activities the user engaged in under similar circumstances (indexed by a situation embedding). If the user agrees, Sakha sets a reminder. If not, it may shift the flow back to `normal_chat`.
+   
+   - **`reminder`**: Triggered externally by **APScheduler** when a reminder is due. Sakha gently motivates the user to carry out the scheduled activity. If the user declines or changes their mind, the Supervisor can redirect to `normal_chat`.
+   
+   - **`follow_up`**: Also triggered by **APScheduler**, but after the activity window has passed. Sakha asks for feedback, which is stored in memory using Qdrant and appended to the activity log.
+
+3. **Response Manager**  
+   Each flow returns a **structured response** using Sakha’s consistent, modular **Response Templates**. The Response Manager handles these to:
+   - Store reminders and feedback in the appropriate database via the **Reminder Manager**.
+   - Log activity outcomes and mood feedback in long-term memory.
+   - Format the response for final delivery.
+
+Finally, once the response is generated and sent back, the **conversation history** and any relevant updates are written back to the **conversation state**, ready for the next interaction.
+
+
+
+## Making Sakha Personal: Memory, Preferences, and Context
+
+One of Sakha’s core goals is to feel *personal*—not just in tone, but in how it remembers and responds based on your past experiences. While it's still early in development, the foundation for a memory-aware system is already in place.
+
+### Activity Preferences and Session Context
+
+When a user first registers, their **activity preferences** are collected and stored in a Postgres database. These preferences—like enjoying walks, listening to music, or journaling—are retrieved every time a new conversation begins and injected into the **conversation state**, allowing Sakha to suggest relevant activities right from the start.
+
+### Structured Summarization for Long Conversations
+
+To manage lengthy conversations and keep the LLM within token limits, Sakha uses a summarizer component after every 10 exchanges to generate summary. Rather than generating freeform summaries, Sakha uses a structured template to ensure consistency and easy updating:
+
+**Summary Format:**
+```
+1. Main Topic:
+2. Key Things the User Said:
+3. Key Things Sakha Said or Did:
+4. Decisions or Plans Made:
+5. Unresolved Topics or Follow-Ups:
+```
+
+This summary is stored in the conversation state and passed across nodes during the conversation flow, allowing Sakha to remain context-aware even when the raw message history grows too large.
+
+### Memories Through Feedback
+
+After each activity, Sakha checks in through the **follow-up flow** to ask how it went. The responses—whether the activity was completed, enjoyed, skipped, or why—are stored as **memories** using **Qdrant**, a vector store optimized for similarity search.
+
+To make these memories searchable and context-aware, Sakha uses the `BAAI/bge-small-en-v1.5` model to convert the user's situation into an **embedding vector**, which becomes the index key for Qdrant. The stored memory includes:
+
+- `user_id`, `thread_id`, `activity_id`
+- `user_situation`: the emotional or contextual input from the user
+- `activity_name`, `duration`
+- Whether the activity was **completed**
+- A **score of enjoyment**
+- Any **reason for skipping**
+- A `timestamp` of when the feedback was submitted
+
+This structure enables Sakha to later suggest activities that have worked in similar emotional contexts, not just random options.
+
+
+### What’s Missing Today
+
+At this stage, Sakha doesn’t support *conversational memory* across sessions. That means users can’t yet say things like “Remember what we did last week?” or “Let’s do the walk again,” and expect Sakha to recall past chats or actions explicitly.
+
+Currently, memory is limited to:
+- In-session context
+- Activity preferences
+- Feedback-driven memories for activity suggestions
+
+But this limitation is by design. The goal is to first get structured memory and recall right—ensuring that Sakha offers helpful, accurate nudges based on feedback—before expanding into long-term conversational memory.
+
+---
+
+
 
