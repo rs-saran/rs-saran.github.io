@@ -99,6 +99,13 @@
 </ul>
 <p>Each of these pieces plays a role in making Sakha feel less like a machine—and more like a friend who listens, remembers, and responds with care.</p>
 <hr>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="sakha_internals_chart.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Flow chart of internal components"><img src="https://rs-saran.github.io/projects/20250122_serene_solace_sakha/sakha_internals_chart.png" class="img-fluid figure-img" alt="Flow chart of internal components"></a></p>
+<figcaption>Flow chart of internal components</figcaption>
+</figure>
+</div>
+<hr>
 </section>
 <section id="a-day-in-the-life-of-a-message" class="level2">
 <h2 class="anchored" data-anchor-id="a-day-in-the-life-of-a-message">A Day in the Life of a Message</h2>

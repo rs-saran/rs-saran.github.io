@@ -108,6 +108,9 @@ Each of these pieces plays a role in making Sakha feel less like a machine—and
 
 ---
 
+![Flow chart of internal components](sakha_internals_chart.png){.lightbox}
+
+---
 
 ## A Day in the Life of a Message
 
