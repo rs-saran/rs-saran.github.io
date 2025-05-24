@@ -14,18 +14,18 @@ toc: true
 
 ### Introduction 
 
-In today’s fast-paced world, many of us silently wrestle with stress, loneliness, and emotional overwhelm. Therapy is a powerful avenue for healing, but not everyone needs—or can access—that level of care. Sometimes, all it takes is a gentle check-in, a thoughtful nudge, or the simple comfort of feeling seen.
+In today’s fast-paced world, many of us silently wrestle with stress, loneliness, and emotional overwhelm. Therapy is a powerful avenue for healing, but not everyone needs or can access that level of care. Sometimes, all it takes is a gentle check-in, a thoughtful nudge, or the simple comfort of feeling seen.
 
-That’s where Sakha began—not as a replacement for professional help, but as a small, caring presence always within reach. Not as a replacement for professional help, but as a small, caring presence—always there, always listening. A friend in your pocket, ready to ask how you're doing, suggest something that might lift your mood, or simply sit with you in a moment of stillness.
+That’s where Sakha began not as a replacement for professional help, but as a small, caring presence always within reach. Not as a replacement for professional help, but as a small, caring presence always there, always listening. A friend in your pocket, ready to ask how you're doing, suggest something that might lift your mood, or simply sit with you in a moment of stillness.
 
-The vision was simple yet ambitious: create a chatbot that doesn’t just respond, but genuinely cares. One that offers warmth, understanding, and personalized encouragement—without judgment, pressure, or pretense.
+The vision was simple yet ambitious: create a chatbot that doesn’t just respond, but genuinely cares. One that offers warmth, understanding, and personalized encouragement without judgment, pressure, or pretense.
 
 The name Sakha, meaning “friend” in Sanskrit, wasn’t chosen lightly. It reflected the heart of what I wanted this project to embody: a companion who listens, nudges, and supports without judgment. Someone who remembers that you enjoy walks when you're anxious, or that music lifts your mood when you’re feeling off.
 
 
 **Scope of the Project**  
 
-Sakha isn’t trying to replace a human friend. It doesn’t claim to have all the answers or the emotional depth of years-long relationships. But what it *does* aim to be is something quite intentional: a steady, caring companion that’s always available—especially in moments when reaching out to a real person feels hard.
+Sakha isn’t trying to replace a human friend. It doesn’t claim to have all the answers or the emotional depth of years-long relationships. But what it *does* aim to be is something quite intentional: a steady, caring companion that’s always available especially in moments when reaching out to a real person feels hard.
 
 Instead of aiming for general-purpose conversation or entertainment, Sakha focuses on a specific emotional use-case:  
 > Supporting users in their day-to-day mental well-being through gentle check-ins, helpful activity nudges, and empathetic conversation.
@@ -35,9 +35,9 @@ Instead of aiming for general-purpose conversation or entertainment, Sakha focus
 - **Suggest meaningful actions** like personalized self-care activities, not generic tips.
 - **Hold continuity** across a session and maintain contextual memory, enabling more nuanced and human-like responses.
 - **Handle sensitive situations** with care, offering support resources rather than pretending to be a therapist.
-- **Balance modularity and empathy**—using structured flows powered by LangGraph, but never sounding robotic.
+- **Balance modularity and empathy** using structured flows powered by LangGraph, but never sounding robotic.
 
-It’s a limited scope, yes, but it’s a foundation—one that can evolve over time as we explore more complex interactions, while keeping things simple and meaningful in the beginning.
+It’s a limited scope, yes, but it’s a foundation one that can evolve over time as we explore more complex interactions, while keeping things simple and meaningful in the beginning.
 
 ---
 
@@ -45,7 +45,7 @@ It’s a limited scope, yes, but it’s a foundation—one that can evolve over 
 
 ### **Where Do You Even Start?**
 
-I didn’t set out with a 100-step master plan. Like most projects, Sakha started with a question: *How do I make a chatbot feel like a friend—not just in tone, but in behavior?* I knew I needed something flexible, expressive, and capable of holding a conversation in a way that didn’t feel robotic. That naturally pointed me toward LLMs.
+I didn’t set out with a 100-step master plan. Like most projects, Sakha started with a question: *How do I make a chatbot feel like a friend not just in tone, but in behavior?* I knew I needed something flexible, expressive, and capable of holding a conversation in a way that didn’t feel robotic. That naturally pointed me toward LLMs.
 
 ### **Choosing the Mind – LLMs and How I Picked Mine**
 
@@ -61,7 +61,7 @@ I wrapped this through **LangChain**, which makes it easy to swap out models dur
 
 ### **LangGraph – Giving Structure to Conversations**
 
-Once I picked the brain, I needed to figure out how to guide it. Not every conversation should be flat and linear—some needed state, branching logic, and even tool use.
+Once I picked the brain, I needed to figure out how to guide it. Not every conversation should be flat and linear some needed state, branching logic, and even tool use.
 
 That’s where **LangGraph** came in.
 
@@ -70,7 +70,7 @@ That’s where **LangGraph** came in.
 - It gives me conversational memory for continuity.
 - And it integrates smoothly with external tools and APIs.
 
-LangGraph powers Sakha’s **conversation graph**—the engine that routes how chats progress depending on context and user state.
+LangGraph powers Sakha’s **conversation graph** the engine that routes how chats progress depending on context and user state.
 
 ---
 
@@ -78,33 +78,33 @@ LangGraph powers Sakha’s **conversation graph**—the engine that routes how c
 
 I used **Flask** not just to power Sakha’s simple UI but also to serve the core APIs that make chatting with the bot possible.
 
-On the frontend, I kept things minimal—basic HTML and JavaScript for quick interactions. But behind the scenes, Flask handled the important parts: receiving user input, sending it to the LLM pipeline, and returning thoughtful responses.
+On the frontend, I kept things minimal basic HTML and JavaScript for quick interactions. But behind the scenes, Flask handled the important parts: receiving user input, sending it to the LLM pipeline, and returning thoughtful responses.
 
 It was the ideal choice because:
 - It’s lightweight and easy to set up.
 - It integrates seamlessly with Python, which is what the rest of Sakha is built on.
 - It made building both a simple web UI and a chat API straightforward and fast.
 
-In short, Flask gave me just enough without getting in the way—letting me focus on what mattered most: the experience of the conversation.
+In short, Flask gave me just enough without getting in the way letting me focus on what mattered most: the experience of the conversation.
 
 ---
 
 ## Under the Hood: Core Components That Make Sakha Work
 
-At its heart, Sakha is more than just a chatbot—it’s a thoughtfully layered system designed to feel human, stay context-aware, and respond with care. Instead of relying on a single prompt-response loop, I built Sakha around a modular architecture where each component has a clear responsibility.
+At its heart, Sakha is more than just a chatbot it’s a thoughtfully layered system designed to feel human, stay context-aware, and respond with care. Instead of relying on a single prompt-response loop, I built Sakha around a modular architecture where each component has a clear responsibility.
 
 Here’s a quick overview of the main building blocks:
 
 - **Conversation Processor** – The entry point for all incoming user messages. It handles preprocessing of the `user_input` and streams it through the conversation graph.
 - **Conversation Graph (LangGraph)** – A dynamic flow engine that guides conversations using stateful, branching logic. This is where Sakha’s adaptability comes from.
 - **Conversation State** – A session-unique state object passed through the entire graph, allowing context to persist and evolve throughout the interaction.
-- **Supervisor** – A smart dispatcher that decides *what kind* of conversation Sakha should engage in—whether it’s a normal chat, an activity suggestion, or even a crisis intervention.
+- **Supervisor** – A smart dispatcher that decides *what kind* of conversation Sakha should engage in whether it’s a normal chat, an activity suggestion, or even a crisis intervention.
 - **Crisis Handler** – A specialized module triggered when signs of emotional distress are detected. It provides professional, 24/7 toll-free helpline numbers that users can reach out to.
 - **Chat Engine** – The actual brain behind the conversations, powered by the LLM and dynamically generated prompts based on context and flow.
 - **User, Checkpoint, and Memory Managers** – These handle persistent storage: tracking user info, conversation history, and flow progress across sessions.
 - **Response Templates** – Modular prompt templates that ensure Sakha’s tone stays consistent and compassionate, while allowing for personalization based on user data.
 
-Each of these pieces plays a role in making Sakha feel less like a machine—and more like a friend who listens, remembers, and responds with care.
+Each of these pieces plays a role in making Sakha feel less like a machine and more like a friend who listens, remembers, and responds with care.
 
 ---
 
@@ -116,15 +116,15 @@ Each of these pieces plays a role in making Sakha feel less like a machine—and
 
 So, what actually happens when you type “I’m feeling off today” into Sakha?
 
-While the reply might seem instant and effortless, under the hood, a lot of thought goes into how that message is received, processed, and responded to—with care, context, and relevance.
+While the reply might seem instant and effortless, under the hood, a lot of thought goes into how that message is received, processed, and responded to with care, context, and relevance.
 
 Here’s how a single message flows through Sakha’s system:
 
 1. **UI → Server**  
-   The message begins its journey in the lightweight frontend—a simple HTML/JavaScript interface. When you hit send, the text is forwarded to the backend via a websocket of Flask server, which acts as the bridge between the user and Sakha’s internal logic.
+   The message begins its journey in the lightweight frontend a simple HTML/JavaScript interface. When you hit send, the text is forwarded to the backend via a websocket of Flask server, which acts as the bridge between the user and Sakha’s internal logic.
 
 2. **Flask Endpoint → Conversation Processor**  
-   Once the message reaches the server, it’s handed off to the Conversation Processor—the orchestrator of the system. It performs preprocessing and streams the message into the conversation graph, ultimately receiving a response that’s passed back to the server.
+   Once the message reaches the server, it’s handed off to the Conversation Processor the orchestrator of the system. It performs preprocessing and streams the message into the conversation graph, ultimately receiving a response that’s passed back to the server.
 
    If a follow-up or reminder is due, Sakha’s scheduler triggers dedicated Flask endpoints (`/reminder`, `/followup`) which initiate their flows independently.
 
@@ -134,23 +134,23 @@ Here’s how a single message flows through Sakha’s system:
    The Conversation Processor injects the input into the Conversation Graph, powered by LangGraph. This graph consists of modular nodes and conditional transitions, allowing Sakha to intelligently route the conversation depending on user intent and state.
 
 4. **Supervisor Node → Chat Flow Decision**  
-   Early in the graph, the **Supervisor** node evaluates the input and context. It determines whether this message should enter a general chat flow, trigger an activity suggestion, or—if necessary—be flagged for the **Crisis Handler**.
+   Early in the graph, the **Supervisor** node evaluates the input and context. It determines whether this message should enter a general chat flow, trigger an activity suggestion, or if necessary be flagged for the **Crisis Handler**.
 
 5. **Flow Execution → Chat Engine**  
    Once the appropriate flow is selected, the relevant nodes are executed. These call into the **Chat Engine**, which builds the final LLM prompt using conversation state and sends it to the model (e.g., LLaMA3.3 via Groq API). The response is parsed and formatted.
 
 6. **Server → UI**  
-   Finally, the crafted response is returned through the websocket and rendered in the chat UI. To the user, it feels like a natural, thoughtful message—just from a friend who's really listening.
+   Finally, the crafted response is returned through the websocket and rendered in the chat UI. To the user, it feels like a natural, thoughtful message just from a friend who's really listening.
 
 ---
 
-This flow isn’t just functional—it’s designed for empathy. Each step is intentional, focused on making the interaction feel personal, seamless, and emotionally aware.
+This flow isn’t just functional it’s designed for empathy. Each step is intentional, focused on making the interaction feel personal, seamless, and emotionally aware.
 
 ---
 
 ## Zooming In: How Sakha Handles Every Message
 
-Let’s take a closer look at what happens **after** a message enters Sakha’s system—how it decides what kind of response to generate, which flow to trigger, and how it tracks everything in between.
+Let’s take a closer look at what happens **after** a message enters Sakha’s system how it decides what kind of response to generate, which flow to trigger, and how it tracks everything in between.
 
 ### **Supervisor: Making the First Decision**
 
@@ -168,7 +168,7 @@ Here’s what the Supervisor might decide:
 The **Chat Engine** is where Sakha’s intelligence comes to life. It’s responsible for crafting thoughtful, structured responses by leveraging multiple subcomponents:
 
 1. **Summarizer**  
-   If the current context is too long for the LLM window, the summarizer condenses it and stores the summary in the **conversation state**—preserving emotional and contextual continuity.
+   If the current context is too long for the LLM window, the summarizer condenses it and stores the summary in the **conversation state** preserving emotional and contextual continuity.
 
 2. **Chat Flow Manager**  
    Based on the Supervisor’s directive, this module retrieves the appropriate **chat flow object**, which contains prompts and logic for one of the following flows:
@@ -195,11 +195,11 @@ Finally, once the response is generated and sent back, the **conversation histor
 
 ## Making Sakha Personal: Memory, Preferences, and Context
 
-One of Sakha’s core goals is to feel *personal*—not just in tone, but in how it remembers and responds based on your past experiences. While it's still early in development, the foundation for a memory-aware system is already in place.
+One of Sakha’s core goals is to feel *personal* not just in tone, but in how it remembers and responds based on your past experiences. While it's still early in development, the foundation for a memory-aware system is already in place.
 
 ### Activity Preferences and Session Context
 
-When a user first registers, their **activity preferences** are collected and stored in a Postgres database. These preferences—like enjoying walks, listening to music, or journaling—are retrieved every time a new conversation begins and injected into the **conversation state**, allowing Sakha to suggest relevant activities right from the start.
+When a user first registers, their **activity preferences** are collected and stored in a Postgres database. These preferences like enjoying walks, listening to music, or journaling are retrieved every time a new conversation begins and injected into the **conversation state**, allowing Sakha to suggest relevant activities right from the start.
 
 ### Structured Summarization for Long Conversations
 
@@ -218,7 +218,7 @@ This summary is stored in the conversation state and passed across nodes during 
 
 ### Memories Through Feedback
 
-After each activity, Sakha checks in through the **follow-up flow** to ask how it went. The responses—whether the activity was completed, enjoyed, skipped, or why—are stored as **memories** using **Qdrant**, a vector store optimized for similarity search.
+After each activity, Sakha checks in through the **follow-up flow** to ask how it went. The responses whether the activity was completed, enjoyed, skipped, or why are stored as **memories** using **Qdrant**, a vector store optimized for similarity search.
 
 To make these memories searchable and context-aware, Sakha uses the `BAAI/bge-small-en-v1.5` model to convert the user's situation into an **embedding vector**, which becomes the index key for Qdrant. The stored memory includes:
 
@@ -242,16 +242,16 @@ Currently, memory is limited to:
 - Activity preferences
 - Feedback-driven memories for activity suggestions
 
-But this limitation is by design. The goal is to first get structured memory and recall right—ensuring that Sakha offers helpful, accurate nudges based on feedback—before expanding into long-term conversational memory.
+But this limitation is by design. The goal is to first get structured memory and recall right ensuring that Sakha offers helpful, accurate nudges based on feedback before expanding into long-term conversational memory.
 
 ---
 
 
 ## Testing Sakha: What We're Evaluating and How
 
-Before Sakha is released more broadly, it's essential to understand not just whether it works—but *how well* it supports, listens, and responds to real users. The current plan is to manually test interactions with a mix of real users and AI-generated simulated conversations, with a human evaluator scoring each chat based on the following **rubric**.
+Before Sakha is released more broadly, it's essential to understand not just whether it works but *how well* it supports, listens, and responds to real users. The current plan is to manually test interactions with a mix of real users and AI-generated simulated conversations, with a human evaluator scoring each chat based on the following **rubric**.
 
-This rubric is designed to balance emotional intelligence, usability, personalization, and safety—everything that makes Sakha feel like more than a script.
+This rubric is designed to balance emotional intelligence, usability, personalization, and safety everything that makes Sakha feel like more than a script.
 
 ---
 
@@ -264,11 +264,11 @@ This rubric is designed to balance emotional intelligence, usability, personaliz
 | **Clarity & Simplicity of Responses**                       |                  | Are the responses easy to understand, jargon-free, and structured clearly for the user’s mental/emotional state?                                             |
 | **Personalization & Contextual Awareness**                  |                  | Does Sakha adapt to user preferences, past feedback, or the current mood? Does it feel like a *personal* assistant, not just a generic chatbot?             |
 | **Memory Usage (Preferences & Feedback Recall)**            |                  | Is previously stored data (e.g., activity preferences, feedback on past activities) reflected appropriately in recommendations or tone?                      |
-| **Adaptability to User Mood & Engagement**                  |                  | Can Sakha shift gears—be it from light conversation to deeper support or vice versa—based on mood signals or disengagement?                                  |
+| **Adaptability to User Mood & Engagement**                  |                  | Can Sakha shift gears be it from light conversation to deeper support or vice versa based on mood signals or disengagement?                                  |
 | **Privacy & Boundary Respect**                              |                  | Does Sakha avoid prying questions, handle sensitive topics gracefully, and make the user feel emotionally safe throughout the interaction?                   |
 | **Encouragement Toward Self-care or Action**                |                  | Are nudges toward activity or self-care natural, timely, and well-aligned with user readiness or preferences?                                                |
 | **Crisis Sensitivity & Handling**                           |                  | Does Sakha detect possible signs of distress and route the user appropriately (e.g., to a crisis handler)? Does it avoid triggering or insensitive responses? |
-| **Response Consistency & Identity**                         |                  | Is Sakha’s tone, values, and personality consistent throughout conversations—even across sessions?                                                           |
+| **Response Consistency & Identity**                         |                  | Is Sakha’s tone, values, and personality consistent throughout conversations even across sessions?                                                           |
 | **Overall Flow & Conversation Coherence**                   |                  | Do the messages feel like part of a thoughtful, coherent interaction rather than disjointed replies?                                                         |
 
 ---
@@ -288,23 +288,21 @@ This rubric is designed to balance emotional intelligence, usability, personaliz
 
 This rubric will evolve with usage. Early testing will be fully manual, with notes and reflections gathered from test users and evaluators. In the long run, the plan is to partially automate this process using LLMs as scoring agents on synthetic data.
 
-Here’s a suggestion for the **final section** to wrap up the blog with forward-looking momentum and a reflective close:
-
 ---
 
 ## What’s Next & Closing Thoughts
 
-Sakha started as an idea—to build a chatbot that doesn't just reply, but *connects*. From managing structured flows to handling complex emotional contexts, every piece of Sakha was designed with empathy and adaptability in mind. But this is only the beginning.
+Sakha started as an idea to build a chatbot that doesn't just reply, but *connects*. From managing structured flows to handling complex emotional contexts, every piece of Sakha was designed with empathy and adaptability in mind. But this is only the beginning.
 
 ### What’s Next:
-- **User Testing & Iteration**: With the core in place, the next step is structured testing using the evaluation rubric above. This feedback loop will guide refinement—both in how Sakha speaks and how it reasons.
+- **User Testing & Iteration**: With the core in place, the next step is structured testing using the evaluation rubric above. This feedback loop will guide refinement both in how Sakha speaks and how it reasons.
 - **Deeper Memory & Personalization**: One limitation today is the lack of long-term memory in natural conversation. The next version will allow users to refer to past chats, explore past activity feedback, and reflect over time.
 - **Multimodal and Voice Interfaces**: Conversations don’t always have to be typed. Voice input and lightweight emotion detection are on the roadmap for future iterations.
-- **Open Source + Deployment**: Sakha will likely be open-sourced with clear documentation, so others can build on it or adapt it to their own domains—whether mental health, coaching, or companionship.
+- **Open Source + Deployment**: Sakha will likely be open-sourced with clear documentation, so others can build on it or adapt it to their own domains whether mental health, coaching, or companionship.
 
 ---
 
-At its heart, Sakha is a human-first system—less about flashy features, more about thoughtful design. It’s far from perfect, but it’s trying. And sometimes, that’s exactly what we need: something (or someone) that listens, remembers, and tries to help, gently.
+At its heart, Sakha is a human-first system less about flashy features, more about thoughtful design. It’s far from perfect, but it’s trying. And sometimes, that’s exactly what we need: something (or someone) that listens, remembers, and tries to help, gently.
 
 Thanks for reading. 💙
 
