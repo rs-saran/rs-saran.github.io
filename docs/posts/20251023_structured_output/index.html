@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Sai Saran Reddy">
+<meta name="dcterms.date" content="2025-10-23">
+<meta name="description" content="Discover how to harness the power of large language models to reliably generate structured data">
 
-<title>Posts – RS Saran</title>
+<title>Generating Structured Outputs from LLMs – RS Saran</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,28 +23,63 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./images/favicons/rssr-nobg.png" rel="icon" type="image/png">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-ddd961a2510921635943dfbbd19534c4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../images/favicons/rssr-nobg.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-ddd961a2510921635943dfbbd19534c4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -69,78 +107,20 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
 
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
-<body class="nav-fixed">
+<body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top quarto-banner">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="./index.html" class="navbar-brand navbar-brand-logo">
-    <img src="./images/favicons/rssr-1.png" alt="" class="navbar-logo">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../images/favicons/rssr-1.png" alt="" class="navbar-logo">
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -150,19 +130,19 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./projects.html"> 
+    <a class="nav-link" href="../../projects.html"> 
 <span class="menu-text">Projects</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./posts.html" aria-current="page"> 
+    <a class="nav-link" href="../../posts.html"> 
 <span class="menu-text">Posts</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -197,117 +177,150 @@ window.Quarto = {
 <!-- content -->
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page-left">
-      <h1 class="title">Posts</h1>
-            <p class="subtitle lead">some blog posts and other musings</p>
-                      </div>
+    <div class="quarto-title column-body">
+      <h1 class="title">Generating Structured Outputs from LLMs</h1>
+                  <div>
+        <div class="description">
+          Discover how to harness the power of large language models to reliably generate structured data
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">LLM</div>
+                <div class="quarto-category">NLP</div>
+                <div class="quarto-category">AGENTS</div>
+              </div>
+                  </div>
   </div>
     
   
-  <div class="quarto-title-meta column-page-left">
+  <div class="quarto-title-meta">
 
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p><a href="https://rs-saran.github.io/">Sai Saran Reddy</a> </p>
+            </div>
+    </div>
       
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">October 23, 2025</p>
+      </div>
+    </div>
     
       
     </div>
     
   
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(2)</span></div><div class="category" data-category="QUdFTlRT">AGENTS <span class="quarto-category-count">(1)</span></div><div class="category" data-category="RmljdGlvbg==">Fiction <span class="quarto-category-count">(1)</span></div><div class="category" data-category="TExN">LLM <span class="quarto-category-count">(1)</span></div><div class="category" data-category="TkxQ">NLP <span class="quarto-category-count">(1)</span></div></div></div>
+    
 <!-- main -->
-<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
+<main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
 
 
 
+<section id="generating-structured-outputs-from-llms" class="level1">
+<h1>Generating Structured Outputs from LLMs</h1>
+<p>In my previous project <strong>Sakha</strong>, I needed to generate <em>a lot</em> of structured outputs so the chatbot could function like an agent — using tools, recalling memories, and managing context effectively. I achieved this through langchain’s inbuilt structured output implementation(wrapper for API’s that support it) :</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>llm.with_structured_output(ResponseStructure).invoke(prompt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This made me wonder: <em>How does it happen?</em> <em>Do I need to retrain the model to reliably produce valid structured text?</em></p>
+<p>It turns out — <strong>no, you don’t.</strong></p>
+<p>In this post, I’ll share what I learned about how structured output generation actually works in modern LLMs.</p>
+<section id="why-structured-output-matters" class="level2">
+<h2 class="anchored" data-anchor-id="why-structured-output-matters">Why Structured Output Matters</h2>
+<p>When your application needs reliable JSON, SQL, or other formal languages from an LLM, <strong>validity is critical</strong>. Even a single missing bracket in generated JSON — like <code>{"name": "John"</code> instead of <code>{"name": "John"}</code> — can break downstream systems.</p>
+<p>Naively prompting a model to “generate JSON” often leads to malformed outputs or subtle syntax errors. To make structured generation reliable, we need a way to <em>enforce</em> valid structure while decoding.</p>
+</section>
+<section id="why-prompting-and-re-prompting-isnt-enough" class="level2">
+<h2 class="anchored" data-anchor-id="why-prompting-and-re-prompting-isnt-enough">Why Prompting (and Re-prompting) Isn’t Enough</h2>
+<p>A common workaround is to simply “prompt better” — for example, asking the model to <em>strictly output valid JSON</em> or to <em>fix invalid output and try again</em>. While this works sometimes, it’s fundamentally unreliable at scale.</p>
+<p>Here’s why:</p>
+<ul>
+<li><strong>Probabilistic outputs</strong> — even with careful instructions, the model samples from a distribution, so small randomness can break structure.</li>
+<li><strong>Error amplification</strong> — if a model generates slightly invalid text, a re-prompt often leads to compounding errors or over-correction.</li>
+<li><strong>Inefficiency</strong> — detecting and fixing invalid outputs adds latency and cost, especially when multiple re-prompts are needed.</li>
+<li><strong>No structural guarantees</strong> — the model may “look” like it’s following instructions but still produce text that only appears valid (e.g., unbalanced brackets or escaped quotes).</li>
+</ul>
+<p>Prompt engineering improves <em>likelihood</em>, not <em>certainty</em>. Grammar-constrained decoding, in contrast, enforces correctness <em>by design</em> — the model literally cannot emit an invalid token.</p>
+</section>
+<section id="constrained-decoding-the-basic-idea" class="level2">
+<h2 class="anchored" data-anchor-id="constrained-decoding-the-basic-idea">Constrained Decoding: The Basic Idea</h2>
+<p>How can we guarantee valid model outputs? Enter <strong>constrained decoding</strong>.</p>
+<p>During generation, an LLM predicts a probability distribution (logits) over all possible next tokens at each step. Constrained decoding applies a <strong>mask</strong> to this distribution — blocking tokens (by setting their logits to <code>-∞</code>) that would violate a desired structure.</p>
+<p>For example, it can prevent the model from generating a <code>}</code> before a matching <code>{</code>.</p>
+<p>By restricting the model to only valid tokens, we ensure <strong>syntactic correctness</strong> and <strong>drastically reduce</strong> the search space for valid sequences.</p>
+<p><a href="constrained_decoding_logits.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Constrained Decoding Logits"><img src="constrained_decoding_logits.png" class="img-fluid" alt="Constrained Decoding Logits"></a><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>There are many ways to constrain an LLM’s output:</p>
+<ol type="1">
+<li><strong>Grammar Constraints</strong> – Enforce structural rules, such as requiring output to follow a JSON schema or match a regex pattern.</li>
+<li><strong>Lexical Constraints</strong> – Control word choice, e.g., forbidding certain tokens or forcing specific words to appear.</li>
+<li><strong>Semantic Constraints</strong> – Limit the <em>meaning</em> of outputs, e.g., ensuring numeric values stay within a range (0–100) or that a list of values sums to 1.</li>
+</ol>
+<blockquote class="blockquote">
+<p><strong>Note:</strong> A rule like “color must be in [red, yellow, green]” is <strong>not</strong> a semantic constraint but a <strong>grammar constraint</strong>—the model doesn’t need to understand meaning, it just has to choose from a fixed set of allowed tokens.</p>
+</blockquote>
+<p>These are just a few examples—many other types of constraints can be applied depending on the use case.</p>
+</section>
+<section id="grammar-constrained-decoding" class="level2">
+<h2 class="anchored" data-anchor-id="grammar-constrained-decoding">Grammar-Constrained Decoding</h2>
+<p><strong>Grammar-constrained decoding</strong> enforces a complete structural definition of what counts as <em>valid output</em>.</p>
+<p>This is achieved using a <strong>Context-Free Grammar (CFG)</strong> — a formal set of production rules that describe how valid strings in a language (such as JSON or SQL) can be constructed. In essence, the grammar specifies <em>which tokens can legally follow which</em>, ensuring that the output remains structurally correct from start to finish.</p>
+<blockquote class="blockquote">
+<p><strong>Note: CFG vs.&nbsp;CSG</strong></p>
+<ul>
+<li><strong>Context-Free Grammar (CFG):</strong> Rules apply independently of surrounding context.</li>
+<li><strong>Context-Sensitive Grammar (CSG):</strong> Rules depend on context — for example, plural agreement in natural language (“this” vs.&nbsp;“these”).</li>
+</ul>
+</blockquote>
+<p>Because CFGs encode full syntactic rules, grammar-constrained decoding enables models to produce valid outputs <em>by construction</em> — without needing post-generation validation.</p>
+</section>
+<section id="why-we-dont-need-to-retrain-the-model" class="level2">
+<h2 class="anchored" data-anchor-id="why-we-dont-need-to-retrain-the-model">Why We Don’t Need to Retrain the Model</h2>
+<p>A key insight is that pretrained LLMs already know how to produce structured text — they’ve seen plenty of JSON, code, and markup during training.</p>
+<p>The challenge isn’t teaching them structure — it’s <strong>enforcing</strong> that structure during sampling. By constraining token choices based on grammar rules, we can guide the model toward valid outputs without changing its weights.</p>
+<p>This makes structured generation fast, general, and free of retraining overhead.</p>
+</section>
+<section id="open-libraries-that-support-grammar-constrained-decoding" class="level2">
+<h2 class="anchored" data-anchor-id="open-libraries-that-support-grammar-constrained-decoding">Open Libraries That Support Grammar-Constrained Decoding</h2>
+<p>Several open libraries now implement grammar-constrained decoding in practice:</p>
+<ul>
+<li><p><strong>XGrammar</strong> — integrates grammar checks directly into the decoding loop, updating valid token masks as each token is generated. It’s efficient and works well with open-weight models run locally (e.g., vLLM or MLC).</p></li>
+<li><p><strong>LLGuidance</strong> — re-parses the partial output after every generation step using the provided grammar to determine valid next tokens. It supports API-based black-box models like OpenAI’s but can be slower due to repeated parsing overhead.</p></li>
+<li><p><strong>Outlines</strong> — uses a grammar-aware tokenizer and validates tokens against the grammar during generation. It strikes a balance between control and ease of integration, suitable for both open and hosted models.</p></li>
+</ul>
+<p>Each library applies the same principle — <strong>restrict the next-token choices according to grammar rules</strong> — but differs in where it enforces the constraint (inside the decoding loop vs via external parsing).</p>
+</section>
+<section id="why-grammar-constrained-decoding-can-still-fail" class="level2">
+<h2 class="anchored" data-anchor-id="why-grammar-constrained-decoding-can-still-fail">Why Grammar-Constrained Decoding Can Still Fail</h2>
+<p>Even with grammar enforcement, structured output isn’t foolproof. Failures can still occur for several reasons:</p>
+<ul>
+<li><strong>Semantic errors</strong> — the generated output may be valid according to the grammar but still nonsensical</li>
+<li><strong>Incomplete grammars</strong> — hand-written grammars might miss certain valid constructs, causing otherwise correct outputs to be rejected or malformed ones to slip through.</li>
+<li><strong>Performance trade-offs</strong> — for complex grammars, generating masks or re-parsing at each step can slow decoding significantly.</li>
+<li><strong>Tokenization mismatches</strong> — when model tokenization doesn’t align perfectly with grammar tokens, valid sequences can become unreachable or invalid.</li>
+</ul>
+<p>In short, grammar constraints guarantee syntax, not semantics — they keep the form right, but not always the meaning.</p>
+</section>
+<section id="final-thoughts" class="level2">
+<h2 class="anchored" data-anchor-id="final-thoughts">Final Thoughts</h2>
+<p>Generating structured outputs from LLMs doesn’t require retraining — it requires <strong>smarter decoding</strong>. Grammar-constrained decoding offers a principled way to ensure syntactic validity while leveraging pretrained knowledge of structure.</p>
 
 
+</section>
+</section>
 
 
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="TExNJTJDTkxQJTJDQUdFTlRT" data-listing-date-sort="1761157800000" data-listing-file-modified-sort="1761228129566" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1003">
-<div class="thumbnail">
-<p><a href="./posts/20251023_structured_output/index.html" class="no-external"></a></p><a href="./posts/20251023_structured_output/index.html" class="no-external">
-<p class="card-img-top"><img src="posts\20251023_structured_output\constrained_decoding_logits.png" alt="Constrained Decoding Logits"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/20251023_structured_output/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/20251023_structured_output/index.html" class="no-external">Generating Structured Outputs from LLMs</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/20251023_structured_output/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('TExN'); return false;">
-LLM
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('TkxQ'); return false;">
-NLP
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('QUdFTlRT'); return false;">
-AGENTS
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/20251023_structured_output/index.html" class="no-external">Discover how to harness the power of large language models to reliably generate structured data</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/20251023_structured_output/index.html" class="no-external">
-<div class="listing-date">
-Oct 23, 2025
-</div>
-<div class="listing-author">
-Sai Saran Reddy
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="RmljdGlvbg==" data-listing-date-sort="1733682600000" data-listing-file-modified-sort="1733760069796" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="904">
-<div class="thumbnail">
-<p><a href="./posts/20241209_tale_of_two_lands/index.html" class="no-external"></a></p><a href="./posts/20241209_tale_of_two_lands/index.html" class="no-external">
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-</a><p><a href="./posts/20241209_tale_of_two_lands/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/20241209_tale_of_two_lands/index.html" class="no-external">The Tale of the Twin Lands</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/20241209_tale_of_two_lands/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('RmljdGlvbg=='); return false;">
-Fiction
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/20241209_tale_of_two_lands/index.html" class="no-external">A short fictional tale of an ancient continent with a towering mountain spine </a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/20241209_tale_of_two_lands/index.html" class="no-external">
-<div class="listing-date">
-Dec 9, 2024
-</div>
-<div class="listing-author">
-Sai Saran Reddy
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div></main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p><a href="https://xgrammar.mlc.ai/docs/tutorials/constrained_decoding.html">XGrammar Constrained decoding</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -726,6 +739,38 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
 
 
 

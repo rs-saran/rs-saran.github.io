@@ -18,7 +18,7 @@
     "href": "posts.html",
     "title": "Posts",
     "section": "",
-    "text": "The Tale of the Twin Lands\n\n\n\n\n\n\nFiction\n\n\n\nA short fictional tale of an ancient continent with a towering mountain spine \n\n\n\n\n\nDec 9, 2024\n\n\nSai Saran Reddy\n\n\n\n\n\n\nNo matching items"
+    "text": "Generating Structured Outputs from LLMs\n\n\n\n\n\n\nLLM\n\n\nNLP\n\n\nAGENTS\n\n\n\nDiscover how to harness the power of large language models to reliably generate structured data\n\n\n\n\n\nOct 23, 2025\n\n\nSai Saran Reddy\n\n\n\n\n\n\n\n\n\n\n\n\nThe Tale of the Twin Lands\n\n\n\n\n\n\nFiction\n\n\n\nA short fictional tale of an ancient continent with a towering mountain spine \n\n\n\n\n\nDec 9, 2024\n\n\nSai Saran Reddy\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "me_in_moments/index.html",
@@ -152,5 +152,75 @@
     "title": "RS Saran",
     "section": "",
     "text": "Redirecting…\n\n\n\n\n\n\nIf you are not redirected automatically, follow this link."
+  },
+  {
+    "objectID": "posts/20251023_structured_output/index.html",
+    "href": "posts/20251023_structured_output/index.html",
+    "title": "Generating Structured Outputs from LLMs",
+    "section": "",
+    "text": "In my previous project Sakha, I needed to generate a lot of structured outputs so the chatbot could function like an agent — using tools, recalling memories, and managing context effectively. I achieved this through langchain’s inbuilt structured output implementation(wrapper for API’s that support it) :\nllm.with_structured_output(ResponseStructure).invoke(prompt)\nThis made me wonder: How does it happen? Do I need to retrain the model to reliably produce valid structured text?\nIt turns out — no, you don’t.\nIn this post, I’ll share what I learned about how structured output generation actually works in modern LLMs.\n\n\nWhen your application needs reliable JSON, SQL, or other formal languages from an LLM, validity is critical. Even a single missing bracket in generated JSON — like {\"name\": \"John\" instead of {\"name\": \"John\"} — can break downstream systems.\nNaively prompting a model to “generate JSON” often leads to malformed outputs or subtle syntax errors. To make structured generation reliable, we need a way to enforce valid structure while decoding.\n\n\n\nA common workaround is to simply “prompt better” — for example, asking the model to strictly output valid JSON or to fix invalid output and try again. While this works sometimes, it’s fundamentally unreliable at scale.\nHere’s why:\n\nProbabilistic outputs — even with careful instructions, the model samples from a distribution, so small randomness can break structure.\nError amplification — if a model generates slightly invalid text, a re-prompt often leads to compounding errors or over-correction.\nInefficiency — detecting and fixing invalid outputs adds latency and cost, especially when multiple re-prompts are needed.\nNo structural guarantees — the model may “look” like it’s following instructions but still produce text that only appears valid (e.g., unbalanced brackets or escaped quotes).\n\nPrompt engineering improves likelihood, not certainty. Grammar-constrained decoding, in contrast, enforces correctness by design — the model literally cannot emit an invalid token.\n\n\n\nHow can we guarantee valid model outputs? Enter constrained decoding.\nDuring generation, an LLM predicts a probability distribution (logits) over all possible next tokens at each step. Constrained decoding applies a mask to this distribution — blocking tokens (by setting their logits to -∞) that would violate a desired structure.\nFor example, it can prevent the model from generating a } before a matching {.\nBy restricting the model to only valid tokens, we ensure syntactic correctness and drastically reduce the search space for valid sequences.\n1\nThere are many ways to constrain an LLM’s output:\n\nGrammar Constraints – Enforce structural rules, such as requiring output to follow a JSON schema or match a regex pattern.\nLexical Constraints – Control word choice, e.g., forbidding certain tokens or forcing specific words to appear.\nSemantic Constraints – Limit the meaning of outputs, e.g., ensuring numeric values stay within a range (0–100) or that a list of values sums to 1.\n\n\nNote: A rule like “color must be in [red, yellow, green]” is not a semantic constraint but a grammar constraint—the model doesn’t need to understand meaning, it just has to choose from a fixed set of allowed tokens.\n\nThese are just a few examples—many other types of constraints can be applied depending on the use case.\n\n\n\nGrammar-constrained decoding enforces a complete structural definition of what counts as valid output.\nThis is achieved using a Context-Free Grammar (CFG) — a formal set of production rules that describe how valid strings in a language (such as JSON or SQL) can be constructed. In essence, the grammar specifies which tokens can legally follow which, ensuring that the output remains structurally correct from start to finish.\n\nNote: CFG vs. CSG\n\nContext-Free Grammar (CFG): Rules apply independently of surrounding context.\nContext-Sensitive Grammar (CSG): Rules depend on context — for example, plural agreement in natural language (“this” vs. “these”).\n\n\nBecause CFGs encode full syntactic rules, grammar-constrained decoding enables models to produce valid outputs by construction — without needing post-generation validation.\n\n\n\nA key insight is that pretrained LLMs already know how to produce structured text — they’ve seen plenty of JSON, code, and markup during training.\nThe challenge isn’t teaching them structure — it’s enforcing that structure during sampling. By constraining token choices based on grammar rules, we can guide the model toward valid outputs without changing its weights.\nThis makes structured generation fast, general, and free of retraining overhead.\n\n\n\nSeveral open libraries now implement grammar-constrained decoding in practice:\n\nXGrammar — integrates grammar checks directly into the decoding loop, updating valid token masks as each token is generated. It’s efficient and works well with open-weight models run locally (e.g., vLLM or MLC).\nLLGuidance — re-parses the partial output after every generation step using the provided grammar to determine valid next tokens. It supports API-based black-box models like OpenAI’s but can be slower due to repeated parsing overhead.\nOutlines — uses a grammar-aware tokenizer and validates tokens against the grammar during generation. It strikes a balance between control and ease of integration, suitable for both open and hosted models.\n\nEach library applies the same principle — restrict the next-token choices according to grammar rules — but differs in where it enforces the constraint (inside the decoding loop vs via external parsing).\n\n\n\nEven with grammar enforcement, structured output isn’t foolproof. Failures can still occur for several reasons:\n\nSemantic errors — the generated output may be valid according to the grammar but still nonsensical\nIncomplete grammars — hand-written grammars might miss certain valid constructs, causing otherwise correct outputs to be rejected or malformed ones to slip through.\nPerformance trade-offs — for complex grammars, generating masks or re-parsing at each step can slow decoding significantly.\nTokenization mismatches — when model tokenization doesn’t align perfectly with grammar tokens, valid sequences can become unreachable or invalid.\n\nIn short, grammar constraints guarantee syntax, not semantics — they keep the form right, but not always the meaning.\n\n\n\nGenerating structured outputs from LLMs doesn’t require retraining — it requires smarter decoding. Grammar-constrained decoding offers a principled way to ensure syntactic validity while leveraging pretrained knowledge of structure."
+  },
+  {
+    "objectID": "posts/20251023_structured_output/index.html#why-structured-output-matters",
+    "href": "posts/20251023_structured_output/index.html#why-structured-output-matters",
+    "title": "Generating Structured Outputs from LLMs",
+    "section": "",
+    "text": "When your application needs reliable JSON, SQL, or other formal languages from an LLM, validity is critical. Even a single missing bracket in generated JSON — like {\"name\": \"John\" instead of {\"name\": \"John\"} — can break downstream systems.\nNaively prompting a model to “generate JSON” often leads to malformed outputs or subtle syntax errors. To make structured generation reliable, we need a way to enforce valid structure while decoding."
+  },
+  {
+    "objectID": "posts/20251023_structured_output/index.html#why-prompting-and-re-prompting-isnt-enough",
+    "href": "posts/20251023_structured_output/index.html#why-prompting-and-re-prompting-isnt-enough",
+    "title": "Generating Structured Outputs from LLMs",
+    "section": "",
+    "text": "A common workaround is to simply “prompt better” — for example, asking the model to strictly output valid JSON or to fix invalid output and try again. While this works sometimes, it’s fundamentally unreliable at scale.\nHere’s why:\n\nProbabilistic outputs — even with careful instructions, the model samples from a distribution, so small randomness can break structure.\nError amplification — if a model generates slightly invalid text, a re-prompt often leads to compounding errors or over-correction.\nInefficiency — detecting and fixing invalid outputs adds latency and cost, especially when multiple re-prompts are needed.\nNo structural guarantees — the model may “look” like it’s following instructions but still produce text that only appears valid (e.g., unbalanced brackets or escaped quotes).\n\nPrompt engineering improves likelihood, not certainty. Grammar-constrained decoding, in contrast, enforces correctness by design — the model literally cannot emit an invalid token."
+  },
+  {
+    "objectID": "posts/20251023_structured_output/index.html#constrained-decoding-the-basic-idea",
+    "href": "posts/20251023_structured_output/index.html#constrained-decoding-the-basic-idea",
+    "title": "Generating Structured Outputs from LLMs",
+    "section": "",
+    "text": "How can we guarantee valid model outputs? Enter constrained decoding.\nDuring generation, an LLM predicts a probability distribution (logits) over all possible next tokens at each step. Constrained decoding applies a mask to this distribution — blocking tokens (by setting their logits to -∞) that would violate a desired structure.\nFor example, it can prevent the model from generating a } before a matching {.\nBy restricting the model to only valid tokens, we ensure syntactic correctness and drastically reduce the search space for valid sequences.\n1\nThere are many ways to constrain an LLM’s output:\n\nGrammar Constraints – Enforce structural rules, such as requiring output to follow a JSON schema or match a regex pattern.\nLexical Constraints – Control word choice, e.g., forbidding certain tokens or forcing specific words to appear.\nSemantic Constraints – Limit the meaning of outputs, e.g., ensuring numeric values stay within a range (0–100) or that a list of values sums to 1.\n\n\nNote: A rule like “color must be in [red, yellow, green]” is not a semantic constraint but a grammar constraint—the model doesn’t need to understand meaning, it just has to choose from a fixed set of allowed tokens.\n\nThese are just a few examples—many other types of constraints can be applied depending on the use case."
+  },
+  {
+    "objectID": "posts/20251023_structured_output/index.html#grammar-constrained-decoding",
+    "href": "posts/20251023_structured_output/index.html#grammar-constrained-decoding",
+    "title": "Generating Structured Outputs from LLMs",
+    "section": "",
+    "text": "Grammar-constrained decoding enforces a complete structural definition of what counts as valid output.\nThis is achieved using a Context-Free Grammar (CFG) — a formal set of production rules that describe how valid strings in a language (such as JSON or SQL) can be constructed. In essence, the grammar specifies which tokens can legally follow which, ensuring that the output remains structurally correct from start to finish.\n\nNote: CFG vs. CSG\n\nContext-Free Grammar (CFG): Rules apply independently of surrounding context.\nContext-Sensitive Grammar (CSG): Rules depend on context — for example, plural agreement in natural language (“this” vs. “these”).\n\n\nBecause CFGs encode full syntactic rules, grammar-constrained decoding enables models to produce valid outputs by construction — without needing post-generation validation."
+  },
+  {
+    "objectID": "posts/20251023_structured_output/index.html#why-we-dont-need-to-retrain-the-model",
+    "href": "posts/20251023_structured_output/index.html#why-we-dont-need-to-retrain-the-model",
+    "title": "Generating Structured Outputs from LLMs",
+    "section": "",
+    "text": "A key insight is that pretrained LLMs already know how to produce structured text — they’ve seen plenty of JSON, code, and markup during training.\nThe challenge isn’t teaching them structure — it’s enforcing that structure during sampling. By constraining token choices based on grammar rules, we can guide the model toward valid outputs without changing its weights.\nThis makes structured generation fast, general, and free of retraining overhead."
+  },
+  {
+    "objectID": "posts/20251023_structured_output/index.html#open-libraries-that-support-grammar-constrained-decoding",
+    "href": "posts/20251023_structured_output/index.html#open-libraries-that-support-grammar-constrained-decoding",
+    "title": "Generating Structured Outputs from LLMs",
+    "section": "",
+    "text": "Several open libraries now implement grammar-constrained decoding in practice:\n\nXGrammar — integrates grammar checks directly into the decoding loop, updating valid token masks as each token is generated. It’s efficient and works well with open-weight models run locally (e.g., vLLM or MLC).\nLLGuidance — re-parses the partial output after every generation step using the provided grammar to determine valid next tokens. It supports API-based black-box models like OpenAI’s but can be slower due to repeated parsing overhead.\nOutlines — uses a grammar-aware tokenizer and validates tokens against the grammar during generation. It strikes a balance between control and ease of integration, suitable for both open and hosted models.\n\nEach library applies the same principle — restrict the next-token choices according to grammar rules — but differs in where it enforces the constraint (inside the decoding loop vs via external parsing)."
+  },
+  {
+    "objectID": "posts/20251023_structured_output/index.html#why-grammar-constrained-decoding-can-still-fail",
+    "href": "posts/20251023_structured_output/index.html#why-grammar-constrained-decoding-can-still-fail",
+    "title": "Generating Structured Outputs from LLMs",
+    "section": "",
+    "text": "Even with grammar enforcement, structured output isn’t foolproof. Failures can still occur for several reasons:\n\nSemantic errors — the generated output may be valid according to the grammar but still nonsensical\nIncomplete grammars — hand-written grammars might miss certain valid constructs, causing otherwise correct outputs to be rejected or malformed ones to slip through.\nPerformance trade-offs — for complex grammars, generating masks or re-parsing at each step can slow decoding significantly.\nTokenization mismatches — when model tokenization doesn’t align perfectly with grammar tokens, valid sequences can become unreachable or invalid.\n\nIn short, grammar constraints guarantee syntax, not semantics — they keep the form right, but not always the meaning."
+  },
+  {
+    "objectID": "posts/20251023_structured_output/index.html#final-thoughts",
+    "href": "posts/20251023_structured_output/index.html#final-thoughts",
+    "title": "Generating Structured Outputs from LLMs",
+    "section": "",
+    "text": "Generating structured outputs from LLMs doesn’t require retraining — it requires smarter decoding. Grammar-constrained decoding offers a principled way to ensure syntactic validity while leveraging pretrained knowledge of structure."
+  },
+  {
+    "objectID": "posts/20251023_structured_output/index.html#footnotes",
+    "href": "posts/20251023_structured_output/index.html#footnotes",
+    "title": "Generating Structured Outputs from LLMs",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nXGrammar Constrained decoding↩︎"
   }
 ]
