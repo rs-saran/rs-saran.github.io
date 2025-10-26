@@ -34,6 +34,10 @@ website:
   google-analytics:
     tracking-id: "G-CDEME1NRY3"
 
+  cookie-consent:
+    type: implied
+    style: simple
+
 format:
   html:
     theme: cosmo
